@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 router.get('', (req, res) => {
-    res.render('index');
-});
+    const meta = {
+        title: "MongoXpress"
+    }
 
-/* router.listen(port, () => {
-    console.log(`Listening to port ${port}`);
-}); */
+    res.render('index', { meta });
+});
 
 module.exports = router;
