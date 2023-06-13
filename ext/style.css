@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+header {
+    font-size: 0.85rem;
+
+    div:first-of-type {
+        margin-left: auto;
+        padding-top: 1.15rem;
+    }
+
+    input {
+        left: 1rem;
+    }
+
+    #search {
+        padding-top: 0.1rem;
+    }
+}
