@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('', (req, res) => {
     const meta = {
-        title: "MongoXpress"
+        name: "MongoXpress"
     }
 
     res.render('index', { meta });
