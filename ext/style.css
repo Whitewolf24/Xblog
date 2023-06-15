@@ -6,6 +6,8 @@
 header {
     font-size: 0.85rem;
 
+    & {}
+
     div:first-of-type {
         margin-left: auto;
         padding-top: 1.15rem;
@@ -14,8 +16,8 @@ header {
     input {
         left: 1rem;
     }
+}
 
-    #search {
-        padding-top: 0.1rem;
-    }
+#search {
+    padding-top: 0.1rem;
 }

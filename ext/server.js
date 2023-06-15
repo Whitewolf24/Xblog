@@ -9,12 +9,16 @@ const port = 2700 || process.env.port;
 
 serv.use(express.static('public'));
 serv.use(expressui);
-serv.set('layout', '../views/layouts/main');
 serv.set('view engine', 'ejs');
-//serv.use(express.static('../public'));
+
+serv.set('layout', './layouts/main');
 
 serv.use('/', require('./routes/main.js'));
 
+/* serv.get('/', function (reg, res) {
+    res.sendFile("index.ejs")
+});
+ */
 serv.listen(port, () => {
     console.log(`Listening to port ${port}`);
 });

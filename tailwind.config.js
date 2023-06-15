@@ -3,17 +3,16 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: ['./views/**/*.ejs',
-  ],
+  content: ['./views/**/*.ejs'],
 
   theme: {
     extend: {
       /*  fontFamily: {
          'noto': ['"Noto Sans"', ...defaultTheme.fontFamily.sans],
        } */
-    },
-  },
-  plugins: [
-    //require('@tailwindcss/custom-forms')
-  ]
+      spacing: {
+        'vw': '85vw',
+      }
+    }
+  }
 };
