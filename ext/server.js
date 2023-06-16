@@ -7,6 +7,8 @@ const expressui = require('express-ejs-layouts');
 const serv = express();
 const port = 2700 || process.env.port;
 
+const connectDB = require('./db');
+
 serv.use(express.static('public'));
 serv.use(expressui);
 serv.set('view engine', 'ejs');
@@ -22,4 +24,6 @@ serv.use('/', require('./routes/main.js'));
 serv.listen(port, () => {
     console.log(`Listening to port ${port}`);
 });
+
+connectDB();
 

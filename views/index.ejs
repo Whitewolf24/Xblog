@@ -7,21 +7,38 @@
     <!-- <img src="path.jpg" alt="path through field to the clouds" class="author_photo m-0 m-auto pb-10" width="220"
         height="112"> -->
 
-    <section class="articles">
-        <h2 class="articles_title font-bold text-xl ml-32"> Latest Posts</h2>
-        <ul class="mt-6 post">
-            <li>
-                <a>
-                    <span class="ml-52 text-lg">Post Title</span>
-                    <div class="ml-vw">
-                        <span class="font-light text-sm post_date">Date</span>
-                    </div>
-                </a>
-            </li>
+    <section class="mt-32 z-10 articles">
+        <h2 class="articles_title font-bold text-2xl ml-32"> Latest Posts</h2>
+        <ul class="mt-6 posts_ul">
+
+            <% data.forEach(post=> { %>
+                <li class="border-b-stone-800 border-b-2 border-b mb-11">
+                    <a href="/post/<%= post._id %>">
+                        <span class=" ml-52 text-xl hover:text-zinc-400">
+                            <%= post.title %>
+                        </span>
+                        <div class="flex m-0 m-auto w-7/12">
+                            <p class="my-2 line-clamp-4 hyphens-auto posts">
+                                <%= post.body %>
+                            </p>
+                        </div>
+                        <div class="mb-11 ml-vw">
+                            <span class="font-light text-sm post_date">
+                                <%= post.date.toDateString() %>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                <% }) %>
+
         </ul>
-        <div class="ml-52 mt-6">
-            <a class="text-sm font-light previous underline underline-offset-4">...Older</a>
-        </div>
+
+        <% if (nextpage !==null) { %>
+            <div class="ml-52 mt-6">
+                <a href="/?page=<%= nextpage %>" class="text-sm font-light previous underline
+                    underline-offset-4 hover:text-zinc-400">...Older</a>
+            </div>
+            <% } %>
     </section>
 
 </div>

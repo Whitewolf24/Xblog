@@ -11,7 +11,7 @@ module.exports = {
          'noto': ['"Noto Sans"', ...defaultTheme.fontFamily.sans],
        } */
       spacing: {
-        'vw': '85vw',
+        'vw': '65vw',
       }
     }
   }
