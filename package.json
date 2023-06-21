@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "css": "postcss ext/style.css -o public/style_min.css",
-    "css-watch": "postcss ext/style.css -o public/style_min.css --watch",
+    "css": "postcss ext/style.css -o public/css/style_min.css",
+    "css-watch": "postcss ext/style.css -o public/css/style_min.css --watch",
     "start": "ext/server.js",
     "dev": "nodemon --ext * ext/server.js"
   },

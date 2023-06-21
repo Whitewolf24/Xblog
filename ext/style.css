@@ -25,7 +25,3 @@ header {
 .posts_ul li:last-child {
     border-bottom: none !important;
 }
-
-.posts {
-    font-size: 0.9rem;
-}

@@ -11,7 +11,14 @@ module.exports = {
          'noto': ['"Noto Sans"', ...defaultTheme.fontFamily.sans],
        } */
       spacing: {
-        'vw': '65vw',
+        'margin-date': '70%',
+        'margin-lp': '12%',
+        'margin-titles': '19%',
+      },
+      fontSize: {
+        'r-l': 'clamp(1rem, 2.5vw, 1.35rem)',
+        'r-m': 'clamp(0.75rem, 2.5vw, 0.85rem)',
+        'r-s': 'clamp(0.6rem, 2.5vw, 0.8rem)',
       }
     }
   }

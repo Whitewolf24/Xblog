@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const posts = require('../schema/posts');
+//const path = require('path')
+
+const meta = {
+    name: "MongoXpress"
+}
 
 router.get('', async (req, res) => {
-    const meta = {
-        name: "MongoXpress"
-    }
 
-    let post_number = 5;
+    let post_number = 6;
     let page = req.query.page || 1;
 
     try {
@@ -25,13 +27,57 @@ router.get('', async (req, res) => {
             meta,
             data,
             current: page,
-            nextpage: hasnext_page ? next_page : null
+            nextpage: hasnext_page ? next_page : null,
+            currentRoute: '/'
         });
     } catch (error) {
         console.log(error);
     }
 });
 
+//
+
+router.post('/search', async (req, res) => {
+    try {
+
+        let query = req.body.search_inp;
+        const query_nospecial = query.replace(/[^a-zA-Z0-9]/g, "")
+
+        const search_data = await posts.find({
+            $or: [
+                { title: { $regex: new RegExp(query_nospecial, 'i') } }
+                /* { body: {$regex: new RegExp(query_nospecial, 'i')}} */
+            ]
+        });
+
+        res.render('search',
+            {
+                meta,
+                search_data,
+            });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+
+//
+router.get('/post/:id', async (req, res) => {
+
+    try {
+        let post_id = req.params.id;
+        const post_data = await posts.findById({ _id: post_id });
+        res.render('post', {
+            meta,
+            post_data,
+            currentRoute: `/post/${post_id}`
+        });
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+});
 /* function post_data() {
     posts.insertMany([
         {
