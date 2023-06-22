@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const posts = require('../schema/posts');
+//const users = require('../schema/users');
 //const path = require('path')
 
 const meta = {
     name: "MongoXpress"
 }
 
-router.get('', async (req, res) => {
+const main_layout = '../views/layouts/main.ejs';
+const logged_layout = '../views/layouts/logged.ejs';
+
+router.get('/', async (req, res) => {
 
     let post_number = 6;
     let page = req.query.page || 1;
@@ -23,13 +27,27 @@ router.get('', async (req, res) => {
         const next_page = parseInt(page) + 1;
         const hasnext_page = next_page <= Math.ceil(count / post_number)
 
-        res.render('index', {
-            meta,
-            data,
-            current: page,
-            nextpage: hasnext_page ? next_page : null,
-            currentRoute: '/'
-        });
+        if (!req.cookies.cookie) {
+            res.render('index', {
+                meta,
+                data,
+                current: page,
+                nextpage: hasnext_page ? next_page : null,
+                layout: main_layout,
+                currentRoute: '/'
+            });
+        }
+
+        else if (req.cookies.cookie){
+            res.render('index_logged', {
+                meta,
+                data,
+                current: page,
+                nextpage: hasnext_page ? next_page : null,
+                layout: logged_layout,
+                currentRoute: '/'
+            });
+        }
     } catch (error) {
         console.log(error);
     }
@@ -54,6 +72,7 @@ router.post('/search', async (req, res) => {
             {
                 meta,
                 search_data,
+                currentRoute: `/search/${query_nospecial}`
             });
     }
     catch (error) {

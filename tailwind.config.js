@@ -14,6 +14,7 @@ module.exports = {
         'margin-date': '70%',
         'margin-lp': '12%',
         'margin-titles': '19%',
+        'margin-about': '30vw',
       },
       fontSize: {
         'r-l': 'clamp(1rem, 2.5vw, 1.35rem)',
