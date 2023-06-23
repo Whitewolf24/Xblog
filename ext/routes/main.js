@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const posts = require('../schema/posts');
-//const users = require('../schema/users');
+const users = require('../schema/users');
 //const path = require('path')
 
 const meta = {
@@ -9,7 +9,8 @@ const meta = {
 }
 
 const main_layout = '../views/layouts/main.ejs';
-const logged_layout = '../views/layouts/logged.ejs';
+//const logged_layout = '../views/layouts/logged.ejs';
+const user_layout = '../views/layouts/users.ejs';
 
 router.get('/', async (req, res) => {
 
@@ -38,15 +39,8 @@ router.get('/', async (req, res) => {
             });
         }
 
-        else if (req.cookies.cookie){
-            res.render('index_logged', {
-                meta,
-                data,
-                current: page,
-                nextpage: hasnext_page ? next_page : null,
-                layout: logged_layout,
-                currentRoute: '/'
-            });
+        else if (req.cookies.cookie) {
+            return res.redirect('/users/profile');
         }
     } catch (error) {
         console.log(error);
@@ -68,12 +62,24 @@ router.post('/search', async (req, res) => {
             ]
         });
 
-        res.render('search',
-            {
-                meta,
-                search_data,
-                currentRoute: `/search/${query_nospecial}`
-            });
+        if (!req.cookies.cookie) {
+            res.render('search',
+                {
+                    meta,
+                    search_data,
+                    layout: main_layout,
+                    currentRoute: `/search/${query_nospecial}`
+                });
+        }
+        else if (req.cookies.cookie) {
+            res.render('search',
+                {
+                    meta,
+                    search_data,
+                    layout: user_layout,
+                    currentRoute: `/search/${query_nospecial}`
+                });
+        }
     }
     catch (error) {
         console.log(error);
@@ -86,13 +92,25 @@ router.get('/post/:id', async (req, res) => {
     try {
         let post_id = req.params.id;
         const post_data = await posts.findById({ _id: post_id });
-        res.render('post', {
-            meta,
-            post_data,
-            currentRoute: `/post/${post_id}`
-        });
-    }
 
+        if (!req.cookies.cookie) {
+            res.render('post', {
+                meta,
+                post_data,
+                layout: main_layout,
+                currentRoute: `/post/${post_id}`
+            });
+        }
+
+        else if (req.cookies.cookie) {
+            res.render('post', {
+                meta,
+                post_data,
+                layout: user_layout,
+                currentRoute: `/post/${post_id}`
+            });
+        }
+    }
     catch (error) {
         console.log(error);
     }
@@ -121,5 +139,6 @@ router.get('/post/:id', async (req, res) => {
         },
     ])
 } */
+
 
 module.exports = router;

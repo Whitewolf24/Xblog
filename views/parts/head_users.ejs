@@ -1,21 +1,51 @@
 <header class="bg-gradient-to-b from-neutral-700 to-black fixed top-0 mb-10 w-full z-50">
     <ul class="flex border-solid border-b-4 border-b-stone-800">
         <li>
-            <a href="/">
+            <a href="../users/profile">
                 <h1 class="text-4xl font-bold p-4">
                     <%= meta.name %>
                 </h1>
             </a>
         </li>
-        <li>
+        <!-- <li>
             <h2 class="mt-6 ml-64 text-r-l">
-                <span">Admin Panel</span>
+             /*   <%= meta.user %> */
             </h2>
+        </li> -->
+        <li class="m-0 m-auto pt-[0.6rem]">
+            <form class="mr-[10rem] items-center flex relative search_form" method="POST" role="search"
+                action="/search">
+                <input
+                    class="bg-gray-200 h-9 hidden focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs text-gray-950 px-4 relative rounded-xl leading-3 min-w-[80%] w-9/12 md:flex"
+                    type="search" aria-label="Search" id="search_inp" name="search_inp" placeholder="Search">
+                <div>
+                    <button class=" p-2 hidden h-8 mb-2 ml-6 w-9 md:flex">
+                        <svg class="text-white h-6 w-7 hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
         </li>
-        <li class="mt-3 mr-4 text-r-m">
-            <button>
+        </form>
+        <div class="pt-[1.3rem]">
+            <li>
+                <button class=" p-2 flex h-8 mb-2 ml-6 w-9 md:hidden" id="search_butt">
+                    <svg class="text-white h-6 w-7 hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </li>
+        </div>
+        <li class="mt-[1.9rem] mr-4 text-r-m hover:text-zinc-400 md:ml-9">
+            <a href="/logout">
                 Logout
-            </button>
+            </a>
         </li>
     </ul>
 </header>
