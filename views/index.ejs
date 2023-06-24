@@ -8,10 +8,10 @@
 
     <section class="mt-28 z-10 articles">
         <h2 class="articles_title font-bold text-2xl ml-margin-lp"> Latest Posts</h2>
-        <ul class="mt-8 posts_ul">
+        <ul class="mt-8 mb-20 posts_ul">
 
             <% data.forEach(post=> { %>
-                <li class="border-b-stone-800 border-b-2 border-b mb-11">
+                <li class="border-b-zinc-800 border-b-2 border-b mb-11">
                     <a href="/post/<%= post._id %>">
                         <span class="ml-margin-titles text-r-l whitespace-nowrap hover:text-zinc-400">
                             <%= post.title %>
@@ -32,11 +32,18 @@
         </ul>
 
         <% if (nextpage !==null) { %>
-            <div class="ml-margin-titles mt-6">
-                <a href="/?page=<%= nextpage %>" class="text-sm font-light previous underline
-                    underline-offset-4 hover:text-zinc-400">...Older</a>
+            <div class="ml-margin-title mt-24">
+                <a href="/?page=<%= nextpage %>" class="bottom-20 text-r-s font-light left-24 relative underline
+                    underline-offset-4 hover:text-zinc-400 md:left-32 lg:left-48 xl:left-72 previous">...Older</a>
             </div>
             <% } %>
+
+                <% if (nextpage==null) { %>
+                    <div class="ml-margin-title mt-24">
+                        <a href="/?page=<%= nextpage %>" class="bottom-20 text-r-s font-light left-[80vw] relative underline
+                        underline-offset-4 hover:text-zinc-400 previous">...Newer</a>
+                    </div>
+                    <% } %>
     </section>
 
 </div>

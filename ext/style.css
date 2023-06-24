@@ -41,6 +41,10 @@ header {
     }
 }
 
+.posts_li {
+    width: 100%;
+}
+
 #cancel {
     bottom: 35vh;
     height: 1.8rem;

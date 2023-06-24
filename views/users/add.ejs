@@ -1,0 +1,23 @@
+<section class="mt-28">
+    <a href="/user/profile" class="text text-sm ml-5 underline underline-offset-4 hover:text-zinc-400">&larr;
+        Back</a>
+    <div class="items-center justify-center flex text-center">
+        <ul>
+            <form action="/add" method="POST" class="mt-8">
+
+                <label for="title">
+                    <span class="text-[clamp(0.85rem,2.5vw,0.95rem)] mr-2">Title</span>
+                </label>
+                <input type="text" placeholder="Post Title" name="title"
+                    class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs text-gray-950 px-4 mt-3 rounded-xl min-w-[80%] w-9/12">
+                </li>
+                <li class="mt-8">
+                    <textarea cols="50" rows="10" name="content" placeholder="Content"
+                        class="bg-gray-200 h-[40vh] focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs p-4 text-gray-950 rounded-xl w-[50vw]"></textarea>
+                </li>
+                <button type="submit" value="add"
+                    class="border-solid border-white border-[1px] mt-5 text-[clamp(0.85rem,2.5vw,0.95rem)] p-2 rounded-xl hover:text-zinc-400">Add</button>
+            </form>
+        </ul>
+    </div>
+</section>

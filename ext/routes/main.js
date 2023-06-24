@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
     try {
         //const data = await posts.find();
-        const data = await posts.aggregate([{ $sort: { createdAt: -1 } }])
+        const data = await posts.find().sort({ date: -1 })
             .skip(post_number * page - post_number)
             .limit(post_number)
             .exec();
@@ -28,19 +28,29 @@ router.get('/', async (req, res) => {
         const next_page = parseInt(page) + 1;
         const hasnext_page = next_page <= Math.ceil(count / post_number)
 
+        const previous_page = parseInt(page) - 1;
+        const hasprevious_page = next_page >= Math.ceil(count / post_number)
+
         if (!req.cookies.cookie) {
             res.render('index', {
                 meta,
                 data,
                 current: page,
                 nextpage: hasnext_page ? next_page : null,
-                layout: main_layout,
-                currentRoute: '/'
+                previous_page: hasprevious_page ? previous_page : null,
+                layout: main_layout
             });
         }
 
         else if (req.cookies.cookie) {
-            return res.redirect('/users/profile');
+            res.render('index', {
+                meta,
+                data,
+                current: page,
+                nextpage: hasnext_page ? next_page : null,
+                previous_page: hasprevious_page ? previous_page : null,
+                layout: user_layout,
+            });
         }
     } catch (error) {
         console.log(error);
@@ -68,7 +78,6 @@ router.post('/search', async (req, res) => {
                     meta,
                     search_data,
                     layout: main_layout,
-                    currentRoute: `/search/${query_nospecial}`
                 });
         }
         else if (req.cookies.cookie) {
@@ -77,7 +86,6 @@ router.post('/search', async (req, res) => {
                     meta,
                     search_data,
                     layout: user_layout,
-                    currentRoute: `/search/${query_nospecial}`
                 });
         }
     }
@@ -98,7 +106,6 @@ router.get('/post/:id', async (req, res) => {
                 meta,
                 post_data,
                 layout: main_layout,
-                currentRoute: `/post/${post_id}`
             });
         }
 
@@ -107,7 +114,6 @@ router.get('/post/:id', async (req, res) => {
                 meta,
                 post_data,
                 layout: user_layout,
-                currentRoute: `/post/${post_id}`
             });
         }
     }

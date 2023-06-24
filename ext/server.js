@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const expressui = require('express-ejs-layouts');
+const override = require('method-override')
 const serv = express();
 const port = 2700 || process.env.port;
 
@@ -12,6 +13,7 @@ const mongostore = require('connect-mongo');
 
 serv.use(express.urlencoded({ extended: true }))
 serv.use(express.json());
+serv.use(override('_method'));
 
 serv.use(cookie());
 serv.use(session({

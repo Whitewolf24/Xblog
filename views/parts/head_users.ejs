@@ -1,20 +1,14 @@
-<header class="bg-gradient-to-b from-neutral-700 to-black fixed top-0 mb-10 w-full z-50">
-    <ul class="flex border-solid border-b-4 border-b-stone-800">
-        <li>
-            <a href="../users/profile">
+<header class="bg-gradient-to-b from-zinc-800 to-neutral-950 fixed top-0 mb-10 w-full z-50">
+    <ul class="flex">
+        <li class="mr-[-2.4rem] md:mr-8">
+            <a href="/">
                 <h1 class="text-4xl font-bold p-4">
                     <%= meta.name %>
                 </h1>
             </a>
         </li>
-        <!-- <li>
-            <h2 class="mt-6 ml-64 text-r-l">
-             /*   <%= meta.user %> */
-            </h2>
-        </li> -->
         <li class="m-0 m-auto pt-[0.6rem]">
-            <form class="mr-[10rem] items-center flex relative search_form" method="POST" role="search"
-                action="/search">
+            <form class="mr-[6rem] items-center flex relative search_form" method="POST" role="search" action="/search">
                 <input
                     class="bg-gray-200 h-9 hidden focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs text-gray-950 px-4 relative rounded-xl leading-3 min-w-[80%] w-9/12 md:flex"
                     type="search" aria-label="Search" id="search_inp" name="search_inp" placeholder="Search">
@@ -32,7 +26,7 @@
         </form>
         <div class="pt-[1.3rem]">
             <li>
-                <button class=" p-2 flex h-8 mb-2 ml-6 w-9 md:hidden" id="search_butt">
+                <button class=" p-2 flex h-8 mb-2 ml-[-2rem] w-9 md:hidden md:ml-6" id="search_butt">
                     <svg class="text-white h-6 w-7 hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
@@ -42,7 +36,12 @@
                 </button>
             </li>
         </div>
-        <li class="mt-[1.9rem] mr-4 text-r-m hover:text-zinc-400 md:ml-9">
+        <li class="mt-[1.9rem] ml-4 text-r-m hover:text-zinc-400 md:ml-9">
+            <a href="/users/profile">
+                Profile
+            </a>
+        </li>
+        <li class="mt-[1.9rem] mr-5 ml-5 text-r-m hover:text-zinc-400 md:ml-9">
             <a href="/logout">
                 Logout
             </a>

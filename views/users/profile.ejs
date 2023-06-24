@@ -10,36 +10,58 @@
         height="112"> -->
 
     <section class="mt-28 z-10 articles">
-        <h2 class="articles_title font-bold text-2xl ml-margin-lp"> Latest Posts</h2>
+        <div class="flex flex-row float-right relative bottom-5 right-7">
+            <a class="border-solid border-white border-[1px] p-2 text-r-s rounded-xl hover:bg-zinc-700"
+                href="/add">Create Post</a>
+        </div>
         <ul class="mt-8 posts_ul">
 
             <% data.forEach(post=> { %>
-                <li class="border-b-stone-800 border-b-2 border-b mb-11">
+                <li class="border-b-zinc-800 border-b-2 mb-9 ml-6 relative line-clamp-4 hyphens-auto posts_li">
                     <a href="/post/<%= post._id %>">
-                        <span class="ml-margin-titles text-r-l whitespace-nowrap hover:text-zinc-400">
+                        <span
+                            class="text-[clamp(0.85rem,2.5vw,0.95rem)] whitespace-nowrap hover:text-zinc-400 posts_edit">
                             <%= post.title %>
-                        </span></a>
-                    <div class="flex m-0 m-auto w-7/12">
+                        </span>
+                    </a>
+                </li>
+                <li class="flex flex-row float-right relative bottom-[4.4rem] right-4 edit_butt z-40">
+                    <a href="edit/<%= post._id %>"
+                        class="bg-black border-solid border-white border-[1px] p-2 relative mr-4 text-r-s rounded-xl hover:bg-zinc-700">Edit</a>
+                    <!-- <div class="flex m-0 m-auto w-7/12">
                         <p class="my-2 line-clamp-4 hyphens-auto text-r-m posts">
-                            <%= post.body %>
+                          //  <%= post.body %>
                         </p>
                     </div>
                     <div class="mb-11 ml-margin-date">
                         <span class="font-light text-r-s post_date">
-                            - <%= post.date.toDateString() %>
+                           // - <%= post.date.toDateString() %>
                         </span>
-                    </div>
+                    </div> -->
+                    <form action="/erase/<%= post._id %>?_method=DELETE" method="POST">
+                        <button
+                            class="bg-black border-solid border-white border-[1px] p-2 text-r-s rounded-xl hover:bg-zinc-700">
+                            Delete
+                        </button>
+                    </form>
                 </li>
                 <% }) %>
 
         </ul>
 
         <% if (nextpage !==null) { %>
-            <div class="ml-margin-titles mt-6">
-                <a href="/?page=<%= nextpage %>" class="text-sm font-light previous underline
+            <div class="mt-6 relative left-4">
+                <a href="../profile/?page=<%= nextpage %>" class="text-r-s font-light previous underline
                     underline-offset-4 hover:text-zinc-400">...Older</a>
             </div>
             <% } %>
+
+                <% if (nextpage==null) { %>
+                    <div>
+                        <a href="../profile/?page=<%= nextpage %>" class="bottom-1 text-r-s font-light left-[80vw] relative underline
+                    underline-offset-4 hover:text-zinc-400 previous">...Newer</a>
+                    </div>
+                    <% } %>
     </section>
 
 </div>
