@@ -18,8 +18,9 @@ module.exports = {
       },
       fontSize: {
         'r-l': 'clamp(1rem, 2.5vw, 1.35rem)',
-        'r-m': 'clamp(0.75rem, 2.5vw, 0.85rem)',
+        'r-m': 'clamp(0.8rem, 2.5vw, 0.85rem)',
         'r-s': 'clamp(0.6rem, 2.5vw, 0.8rem)',
+        'r-t': 'clamp(0.55rem, 2.5vw, 0.75rem)',
       }
     }
   }

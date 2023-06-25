@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="../../css/style_min.css">
 <script type="text/javascript" defer src="../../js/script.js"></script>
-
 <div class="flex flex-col">
     <div class="author">
         <h1 class="author_name"></h1>
@@ -20,7 +19,7 @@
                 <li class="border-b-zinc-800 border-b-2 mb-9 ml-6 relative line-clamp-4 hyphens-auto posts_li">
                     <a href="/post/<%= post._id %>">
                         <span
-                            class="text-[clamp(0.85rem,2.5vw,0.95rem)] whitespace-nowrap hover:text-zinc-400 posts_edit">
+                            class="text-[clamp(0.75rem,2.5vw,0.85rem)] whitespace-nowrap hover:text-zinc-400 posts_edit sm:text-[clamp(0.85rem,2.5vw,0.95rem)] ">
                             <%= post.title %>
                         </span>
                     </a>
@@ -51,7 +50,7 @@
 
         <% if (nextpage !==null) { %>
             <div class="mt-6 relative left-4">
-                <a href="../profile/?page=<%= nextpage %>" class="text-r-s font-light previous underline
+                <a href="profile/?page=<%= nextpage %>" class="text-r-s font-light previous underline
                     underline-offset-4 hover:text-zinc-400">...Older</a>
             </div>
             <% } %>
@@ -59,7 +58,7 @@
                 <% if (nextpage==null) { %>
                     <div>
                         <a href="../profile/?page=<%= nextpage %>" class="bottom-1 text-r-s font-light left-[80vw] relative underline
-                    underline-offset-4 hover:text-zinc-400 previous">...Newer</a>
+                    underline-offset-4 hover:text-zinc-400 previous" id="next_page">...Newer</a>
                     </div>
                     <% } %>
     </section>

@@ -49,6 +49,7 @@ router.post('/login', async (req, res) => {
 
     } catch (error) {
         console.log(error);
+        return res.redirect('/login_notuser');
     }
 });
 
@@ -62,7 +63,24 @@ router.get('/login_err', async (req, res) => {
 
         res.render('users/login_bad', {
             meta,
-            layout: main_layout
+            layout: login_layout
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.get('/login_notuser', async (req, res) => {
+
+    try {
+
+        const meta = {
+            name: "MongoXpress",
+        }
+
+        res.render('users/login_notuser', {
+            meta,
+            layout: login_layout
         });
     } catch (error) {
         console.log(error);
@@ -188,6 +206,10 @@ router.delete('/erase/:id', async (req, res) => {
 router.get('/signup', async (req, res) => {
 
     try {
+        const meta = {
+            name: "MongoXpress",
+        }
+
         res.render('users/signup', {
             meta,
             layout: login_layout,
