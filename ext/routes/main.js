@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-//
+// ------------/
 
 router.post('/search', async (req, res) => {
     try {
@@ -94,7 +94,8 @@ router.post('/search', async (req, res) => {
     }
 });
 
-//
+// ------------/
+
 router.get('/post/:id', async (req, res) => {
 
     try {

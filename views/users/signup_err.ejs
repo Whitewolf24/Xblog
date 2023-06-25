@@ -12,3 +12,36 @@
         <button class="mb-margin-about hover:text-zinc-400">Signup</button>
     </div>
 </form>
+
+
+<script>
+
+    /*  const letter = /[a-z]/;
+     const upper = /[A-Z]/;
+     const number = /[0-9]/;
+     const symbols = /[!@#$%^&*(),.?":{}|<>]/; */
+
+    const signup_butt = document.querySelector("#signup_butt");
+    const email = document.querySelector("#email");
+    const passw = document.querySelector("#passw");
+
+
+    signup_butt.addEventListener("click", function (e) {
+        if (email.value == "") {
+            e.preventDefault();
+            alert("Please enter your email");
+        }
+        if (passw.value == "") {
+            e.preventDefault();
+            alert("Please enter your password");
+        }
+        if (passw.value.length < 8) {
+            e.preventDefault();
+            alert("Please enter a longer password");
+        }
+
+        else {
+            return true;
+        }
+    });
+</script>

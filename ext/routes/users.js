@@ -6,52 +6,53 @@ const bcrypt = require('bcrypt');
 const token = require('jsonwebtoken');
 const cookie_secret = process.env.COOKIE_SECRET;
 
-
 const login_layout = '../views/layouts/login.ejs';
 const user_layout = '../views/layouts/users.ejs';
 const user_layout_nosearch = '../views/layouts/users_nosearch.ejs';
 
-router.get('/login', async (req, res) => {
+// ------------/LOGIN
 
-    const meta = {
-        name: "MongoXpress"
-    }
+router.route('/login').get(
+    async function (req, res) {
+        const meta = {
+            name: "MongoXpress"
+        }
 
-    try {
-        res.render('users/login', {
-            meta,
-            layout: login_layout
+        try {
+            res.render('users/login', {
+                meta,
+                layout: login_layout
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }).post(
+        async function (req, res) {
+            try {
+
+                const { email, password } = req.body;
+
+                const user = await users.findOne({ email })
+
+                const cokie = token.sign({ userId: user._id }, cookie_secret);
+                const valid_pass = await bcrypt.compare(password, user.password);
+                res.cookie('cookie', cokie, { httpOnly: true });
+
+                if (!valid_pass) {
+                    return res.redirect('/login_err');
+                }
+
+                else {
+                    return res.redirect('/users/profile');
+                }
+
+            } catch (error) {
+                console.log(error);
+                return res.redirect('/login_notuser');
+            }
         });
-    } catch (error) {
-        console.log(error);
-    }
-});
 
-router.post('/login', async (req, res) => {
-
-    try {
-
-        const { email, password } = req.body;
-
-        const user = await users.findOne({ email })
-
-        const cokie = token.sign({ userId: user._id }, cookie_secret);
-        const valid_pass = await bcrypt.compare(password, user.password);
-        res.cookie('cookie', cokie, { httpOnly: true });
-
-        if (!valid_pass) {
-            return res.redirect('/login_err');
-        }
-
-        else {
-            return res.redirect('/users/profile');
-        }
-
-    } catch (error) {
-        console.log(error);
-        return res.redirect('/login_notuser');
-    }
-});
+// ------------
 
 router.get('/login_err', async (req, res) => {
 
@@ -70,6 +71,8 @@ router.get('/login_err', async (req, res) => {
     }
 });
 
+// ------------
+
 router.get('/login_notuser', async (req, res) => {
 
     try {
@@ -87,53 +90,58 @@ router.get('/login_notuser', async (req, res) => {
     }
 });
 
-router.get('/add', async (req, res) => {
+// ------------/
 
+// ------------/ADD
 
-    try {
-        if (req.cookies.cookie) {
-            const data = await posts.find();
+router.route('/add').get(
+    async function (req, res) {
 
-            const meta = {
-                name: "MongoXpress",
+        try {
+            if (req.cookies.cookie) {
+                const data = await posts.find();
+
+                const meta = {
+                    name: "MongoXpress",
+                }
+
+                res.render('users/add', {
+                    meta,
+                    data,
+                    layout: user_layout_nosearch
+                });
+            }
+            else {
+                return res.redirect('/');
             }
 
-            res.render('users/add', {
-                meta,
-                data,
-                layout: user_layout_nosearch
-            });
+        } catch (error) {
+            console.log(error);
         }
-        else {
-            return res.redirect('/');
-        }
+    }).post(
+        async function (req, res) {
 
-    } catch (error) {
-        console.log(error);
-    }
-});
+            try {
+                if (req.cookies.cookie) {
+                    const new_post = new posts({
+                        title: req.body.title,
+                        body: req.body.content
+                    });
+                    await posts.create(new_post);
+                    return res.redirect('/');
+                }
+                else {
+                    return res.redirect('/');
+                }
 
-router.post('/add', async (req, res) => {
+            } catch (error) {
+                console.log(error);
+            }
+        });
 
-    try {
-        if (req.cookies.cookie) {
-            const new_post = new posts({
-                title: req.body.title,
-                body: req.body.content
-            });
-            await posts.create(new_post);
-            return res.redirect('/');
-        }
-        else {
-            return res.redirect('/');
-        }
+// ------------/
 
-    } catch (error) {
-        console.log(error);
-    }
-});
-
-//
+// ------------/EDIT
 
 router.get('/users/edit/:id', async (req, res) => {
 
@@ -161,6 +169,8 @@ router.get('/users/edit/:id', async (req, res) => {
     }
 });
 
+// ------------/
+
 router.put('/edit/:id', async (req, res) => {
 
     try {
@@ -181,8 +191,7 @@ router.put('/edit/:id', async (req, res) => {
     }
 });
 
-//
-
+// ------------/
 
 router.delete('/erase/:id', async (req, res) => {
 
@@ -202,61 +211,64 @@ router.delete('/erase/:id', async (req, res) => {
     }
 });
 
+// ------------/
 
-router.get('/signup', async (req, res) => {
+// ------------/SIGNUP
 
-    try {
-        const meta = {
-            name: "MongoXpress",
+router.route('/signup').get(
+    async function (req, res) {
+        try {
+            const meta = {
+                name: "MongoXpress",
+            }
+
+            res.render('users/signup', {
+                meta,
+                layout: login_layout,
+            });
+        } catch (error) {
+            console.log(error);
         }
+    }).post(
+        async function (req, res) {
 
-        res.render('users/signup', {
-            meta,
-            layout: login_layout,
-        });
-    } catch (error) {
-        console.log(error);
-    }
-});
+            try {
+                const { email, password } = req.body;
+                let username = Math.floor(Math.random() * 1000000000);
+                const hash = await bcrypt.hash(password, 10);
+                const user = await users.findOne({ email });
+                //const id = users.find({ id_1 });
 
-router.post('/signup', async (req, res) => {
-
-    try {
-        const { email, password } = req.body;
-        let username = Math.floor(Math.random() * 1000000000);
-        const hash = await bcrypt.hash(password, 10);
-        const user = await users.findOne({ email });
-        //const id = users.find({ id_1 });
-
-        if (user) {
-            return res.redirect('/signup_err');
-        }
-
-        else {
-            const user = await users.create({ username, email, password: hash });
-            const cokie = token.sign({ userId: user._id }, cookie_secret);
-            res.cookie('cookie', cokie, { httpOnly: true });
-            // if (id) {
-            //users.dropIndex({ id_1 });
-            // }
-            // else {
-            return res.redirect('/');
-            //  }
-            /*  res.status(201).json({ message: 'Created', email });
+                if (user) {
+                    return res.redirect('/signup_err');
                 }
-                catch (error) {
-                    if (error.code === 11000) {
-                        res.status(409).json({ message: 'Email Exists' });
-                    }
-                    res.status(500).json({ message: 'Server Error' });
-                } 
-    */
-        }
-    } catch (error) {
-        console.log(error);
-    }
-});
 
+                else {
+                    const user = await users.create({ username, email, password: hash });
+                    const cokie = token.sign({ userId: user._id }, cookie_secret);
+                    res.cookie('cookie', cokie, { httpOnly: true });
+                    // if (id) {
+                    //users.dropIndex({ id_1 });
+                    // }
+                    // else {
+                    return res.redirect('/');
+                    //  }
+                    /*  res.status(201).json({ message: 'Created', email });
+                        }
+                        catch (error) {
+                            if (error.code === 11000) {
+                                res.status(409).json({ message: 'Email Exists' });
+                            }
+                            res.status(500).json({ message: 'Server Error' });
+                        } 
+            */
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        });
+
+// ------------/
 
 router.get('/signup_err', async (req, res) => {
 
@@ -274,6 +286,8 @@ router.get('/signup_err', async (req, res) => {
         console.log(error);
     }
 });
+
+// ------------/
 
 router.get('/users/profile', async (req, res) => {
 
@@ -316,6 +330,8 @@ router.get('/users/profile', async (req, res) => {
         console.log(error);
     }
 });
+
+// ------------/
 
 router.get('/logout', (req, res) => {
     res.clearCookie('cookie');

@@ -14,10 +14,10 @@
 
 <script>
 
-    const letter = /[a-z]/;
-    const upper = /[A-Z]/;
-    const number = /[0-9]/;
-    const symbols = /[!@#$%^&*(),.?":{}|<>]/;
+    /*  const letter = /[a-z]/;
+     const upper = /[A-Z]/;
+     const number = /[0-9]/;
+     const symbols = /[!@#$%^&*(),.?":{}|<>]/; */
 
     const signup_butt = document.querySelector("#signup_butt");
     const email = document.querySelector("#email");
@@ -32,6 +32,10 @@
         if (passw.value == "") {
             e.preventDefault();
             alert("Please enter your password");
+        }
+        if (passw.value.length < 8) {
+            e.preventDefault();
+            alert("Please enter a longer password");
         }
 
         else {
