@@ -8,7 +8,7 @@
     "css-watch": "postcss ext/style.css -o public/css/style_min.css --watch",
     "start": "node server.js",
     "dev": "nodemon --ext * server.js",
-    "prod": "node server.js"
+    "prod": "server.js"
   },
   "author": "",
   "license": "ISC",
