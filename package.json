@@ -6,9 +6,8 @@
   "scripts": {
     "css": "postcss ext/style.css -o public/css/style_min.css",
     "css-watch": "postcss ext/style.css -o public/css/style_min.css --watch",
-    "start": "node server.js",
     "dev": "nodemon --ext * server.js",
-    "prod": "ncc build server.js -o dist"
+    "prod": "ncc build ./dist/index.js -o dist"
   },
   "author": "",
   "license": "ISC",
