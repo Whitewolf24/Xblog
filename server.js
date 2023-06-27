@@ -5,7 +5,7 @@ const override = require('method-override')
 const serv = express();
 const port = 2700 || process.env.port;
 
-const connectDB = require('./db');
+const connectDB = require('./ext/db');
 
 const session = require('express-session');
 const cookie = require('cookie-parser');
@@ -30,8 +30,8 @@ serv.set('view engine', 'ejs')
 
 serv.set('layout', './layouts/main');
 
-serv.use('/', require('./routes/main.js'));
-serv.use('/', require('./routes/users.js'));
+serv.use('/', require('./ext/routes/main.js'));
+serv.use('/', require('./ext/routes/users.js'));
 
 /* serv.get('/post/:id', function (reg, res) {
     res.sendFile("./css/style-min.css")
