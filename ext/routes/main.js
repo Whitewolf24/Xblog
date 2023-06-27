@@ -12,6 +12,10 @@ const main_layout = '../views/layouts/main.ejs';
 //const logged_layout = '../views/layouts/logged.ejs';
 const user_layout = '../views/layouts/users.ejs';
 
+
+
+// ------------/
+
 router.get('/', async (req, res) => {
 
     let post_number = 6;
@@ -32,7 +36,7 @@ router.get('/', async (req, res) => {
         const hasprevious_page = next_page >= Math.ceil(count / post_number)
 
         if (!req.cookies.cookie) {
-            res.render('index', {
+            res.render('../views/index.ejs', {
                 meta,
                 data,
                 current: page,
@@ -43,7 +47,7 @@ router.get('/', async (req, res) => {
         }
 
         else if (req.cookies.cookie) {
-            res.render('index', {
+            res.render('../views/index.ejs', {
                 meta,
                 data,
                 current: page,
@@ -51,6 +55,7 @@ router.get('/', async (req, res) => {
                 previous_page: hasprevious_page ? previous_page : null,
                 layout: user_layout,
             });
+            res.send(html);
         }
     } catch (error) {
         console.log(error);

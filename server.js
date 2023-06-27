@@ -26,7 +26,9 @@ serv.use(session({
 
 serv.use(express.static('public'));
 serv.use(expressui);
-serv.set('view engine', 'ejs')
+serv.set('view engine', 'ejs');
+
+serv.set('views', 'views')
 
 serv.set('layout', './layouts/main');
 
