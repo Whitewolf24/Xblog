@@ -3,7 +3,7 @@ const express = require('express');
 const expressui = require('express-ejs-layouts');
 const override = require('method-override')
 const serv = express();
-const port = 2700 || process.env.port;
+const port = 2700;
 
 const connectDB = require('./ext/db');
 
