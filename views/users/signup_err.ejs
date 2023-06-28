@@ -1,15 +1,16 @@
 <span class="font-semibold text-rose-700 mt-28 m-0 m-auto">User Exists</span>
 <form action="/signup" method="POST" class="mt-8">
     <div class="flex justify-center items-center text-center">
-        <input type="email" placeholder="Email" name="email"
+        <input type="email" placeholder="Email" name="email" id="email"
             class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
     </div>
     <div class="flex justify-center items-center text-center">
-        <input type="password" placeholder="Password" name="password"
-            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-9 leading-3 w-56">
+        <input type="password" placeholder="Password" name="password" id="passw"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl ml-8 mt-3 mb-9 leading-3 w-56">
+        <span id="eye"></span>
     </div>
     <div class="flex justify-center items-center text-center">
-        <button class="mb-margin-about hover:text-zinc-400">Signup</button>
+        <button class="mb-margin-about hover:text-zinc-400" id="signup_butt_err">Signup</button>
     </div>
 </form>
 
@@ -21,12 +22,29 @@
      const number = /[0-9]/;
      const symbols = /[!@#$%^&*(),.?":{}|<>]/; */
 
-    const signup_butt = document.querySelector("#signup_butt");
+    const signup_butt_err = document.querySelector("#signup_butt");
     const email = document.querySelector("#email");
     const passw = document.querySelector("#passw");
+    const eye = document.querySelector("#eye");
 
+    email.addEventListener("input", function (e) {
+        email.value = email.value.trim().toLowerCase();
+    });
 
-    signup_butt.addEventListener("click", function (e) {
+    passw.addEventListener("input", function (e) {
+        passw.value = passw.value.trim();
+    });
+
+    eye.addEventListener("click", function (e) {
+        if (passw.type == "password") {
+            passw.type = "text";
+        }
+        else {
+            passw.type = "password";
+        }
+    });
+
+    signup_butt_err.addEventListener("click", function (e) {
         if (email.value == "") {
             e.preventDefault();
             alert("Please enter your email");
@@ -35,7 +53,7 @@
             e.preventDefault();
             alert("Please enter your password");
         }
-        if (passw.value.length < 8) {
+        if (!passw.value == "" && passw.value.length < 8) {
             e.preventDefault();
             alert("Please enter a longer password");
         }

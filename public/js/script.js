@@ -79,6 +79,10 @@ if (!window.location.toString().includes("login")
 			}
 		});
 
+
+		new_search_butt.addEventListener("submit", function (e) {
+			removeScripts(new_search_inp);
+		});
 	}
 }
 
@@ -109,4 +113,11 @@ search.addEventListener("click", function (e) {
 		return true;
 	}
 });
+
+function removeScripts(html) {
+	let scripts = html.querySelectorAll('script');
+	for (let script of scripts) {
+		script.remove();
+	}
+}
 

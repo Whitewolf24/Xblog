@@ -6,6 +6,9 @@ const bcrypt = require('bcrypt');
 const token = require('jsonwebtoken');
 const cookie_secret = process.env.COOKIE_SECRET;
 
+const { body, validationResult } = require('express-validator');
+const { sanitize } = require('express-validator');
+
 const login_layout = '../views/layouts/login.ejs';
 const user_layout = '../views/layouts/users.ejs';
 const user_layout_nosearch = '../views/layouts/users_nosearch.ejs';
@@ -27,11 +30,10 @@ router.route('/login').get(
             console.log(error);
         }
     }).post(
-        async function (req, res) {
+        async (req, res) => {
             try {
 
                 const { email, password } = req.body;
-
                 const user = await users.findOne({ email })
 
                 const cokie = token.sign({ userId: user._id }, cookie_secret);
@@ -229,14 +231,19 @@ router.route('/signup').get(
         } catch (error) {
             console.log(error);
         }
-    }).post(
-        async function (req, res) {
+    }).post
+    (
+        [body('email').trim().isEmail().toLowerCase(),
+        body('password').trim(),
+        ], async (req, res) => {
 
             try {
                 const { email, password } = req.body;
                 let username = Math.floor(Math.random() * 1000000000);
-                const hash = await bcrypt.hash(password, 10);
-                const user = await users.findOne({ email });
+                const sanitizedemail = email.trim().toLowerCase();
+                const sanitizedpass = password.trim();
+                const hash = await bcrypt.hash(sanitizedpass, 10);
+                const user = await users.findOne({ sanitizedemail });
                 //const id = users.find({ id_1 });
 
                 if (user) {
@@ -244,7 +251,7 @@ router.route('/signup').get(
                 }
 
                 else {
-                    const user = await users.create({ username, email, password: hash });
+                    const user = await users.create({ username, email: sanitizedemail, password: hash });
                     const cokie = token.sign({ userId: user._id }, cookie_secret);
                     res.cookie('cookie', cokie, { httpOnly: true });
                     // if (id) {
@@ -265,6 +272,7 @@ router.route('/signup').get(
                 }
             } catch (error) {
                 console.log(error);
+                return res.redirect('/signup_err');
             }
         });
 
