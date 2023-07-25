@@ -1,18 +1,22 @@
 const express = require('express');
+const app = express();
+const path = require('path');
 const router = express.Router();
-const posts = require('../schema/posts');
-const users = require('../schema/users');
-//const path = require('path')
+const users = require(path.join(__dirname, '..', 'schema', 'users'));
+const posts = require(path.join(__dirname, '..', 'schema', 'posts'));
+const cookie_parser = require('cookie-parser');
+
+app.use(cookie_parser());
+
+const cookie_name = 'cookie';
 
 const meta = {
     name: "MongoXpress"
 }
 
-const main_layout = '../views/layouts/main.ejs';
 //const logged_layout = '../views/layouts/logged.ejs';
-const user_layout = '../views/layouts/users.ejs';
-
-
+const main_layout = path.join(__dirname, '..', '..', 'views', 'layouts', 'main.ejs');
+const user_layout = path.join(__dirname, '..', '..', 'views', 'layouts', 'users.ejs');
 
 // ------------/
 
@@ -35,8 +39,8 @@ router.get('/', async (req, res) => {
         const previous_page = parseInt(page) - 1;
         const hasprevious_page = next_page >= Math.ceil(count / post_number)
 
-        if (!req.cookies.cookie) {
-            res.render('../views/index.ejs', {
+        if (!req.cookies[cookie_name]) {
+            res.render(path.join(__dirname, '..', '..', 'views', 'index.ejs'), {
                 meta,
                 data,
                 current: page,
@@ -46,8 +50,8 @@ router.get('/', async (req, res) => {
             });
         }
 
-        else if (req.cookies.cookie) {
-            res.render('../views/index.ejs', {
+        else if (req.cookies[cookie_name]) {
+            res.render(path.join(__dirname, '..', '..', 'views', 'index.ejs'), {
                 meta,
                 data,
                 current: page,
@@ -55,7 +59,7 @@ router.get('/', async (req, res) => {
                 previous_page: hasprevious_page ? previous_page : null,
                 layout: user_layout,
             });
-            res.send(html);
+            //res.send(html);
         }
     } catch (error) {
         console.log(error);
@@ -77,7 +81,7 @@ router.post('/search', async (req, res) => {
             ]
         });
 
-        if (!req.cookies.cookie) {
+        if (!req.cookies[cookie_name]) {
             res.render('search',
                 {
                     meta,
@@ -85,7 +89,7 @@ router.post('/search', async (req, res) => {
                     layout: main_layout,
                 });
         }
-        else if (req.cookies.cookie) {
+        else if (req.cookies[cookie_name]) {
             res.render('search',
                 {
                     meta,
@@ -107,7 +111,7 @@ router.get('/post/:id', async (req, res) => {
         let post_id = req.params.id;
         const post_data = await posts.findById({ _id: post_id });
 
-        if (!req.cookies.cookie) {
+        if (!req.cookies[cookie_name]) {
             res.render('post', {
                 meta,
                 post_data,
@@ -115,7 +119,7 @@ router.get('/post/:id', async (req, res) => {
             });
         }
 
-        else if (req.cookies.cookie) {
+        else if (req.cookies[cookie_name]) {
             res.render('post', {
                 meta,
                 post_data,

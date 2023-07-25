@@ -1,17 +1,28 @@
 const express = require('express');
+const app = express();
+const path = require('path');
 const router = express.Router();
-const users = require('../schema/users');
-const posts = require('../schema/posts');
+const users = require(path.join(__dirname, '..', 'schema', 'users'));
+const posts = require(path.join(__dirname, '..', 'schema', 'posts'));
 const bcrypt = require('bcrypt');
 const token = require('jsonwebtoken');
+const cookie_parser = require('cookie-parser');
+
+app.use(cookie_parser());
+
+const cookie_name = 'cookie';
+
+/* const filename = path.basename(__filename);
+const dirname = path.dirname(__filename); */
+
 const cookie_secret = process.env.COOKIE_SECRET;
 
 const { body, validationResult } = require('express-validator');
 const { sanitize } = require('express-validator');
 
-const login_layout = '../views/layouts/login.ejs';
-const user_layout = '../views/layouts/users.ejs';
-const user_layout_nosearch = '../views/layouts/users_nosearch.ejs';
+const login_layout = path.join(__dirname, '..', '..', 'views', 'layouts', 'login.ejs');
+const user_layout = path.join(__dirname, '..', '..', 'views', 'layouts', 'users.ejs');
+const user_layout_nosearch = path.join(__dirname, '..', '..', 'views', 'layouts', 'users_nosearch.ejs');
 
 // ------------/LOGIN
 
@@ -38,14 +49,14 @@ router.route('/login').get(
 
                 const cokie = token.sign({ userId: user._id }, cookie_secret);
                 const valid_pass = await bcrypt.compare(password, user.password);
-                res.cookie('cookie', cokie, { httpOnly: true });
+
+                if (valid_pass) {
+                    res.cookie('cookie', cokie, { httpOnly: true, path: '/' });
+                    return res.redirect('/users/profile');
+                }
 
                 if (!valid_pass) {
                     return res.redirect('/login_err');
-                }
-
-                else {
-                    return res.redirect('/users/profile');
                 }
 
             } catch (error) {
@@ -64,7 +75,7 @@ router.get('/login_err', async (req, res) => {
             name: "MongoXpress",
         }
 
-        res.render('users/login_bad', {
+        res.render(path.join(__dirname, '..', '..', 'views', 'users', 'login_bad.ejs'), {
             meta,
             layout: login_layout
         });
@@ -83,7 +94,7 @@ router.get('/login_notuser', async (req, res) => {
             name: "MongoXpress",
         }
 
-        res.render('users/login_notuser', {
+        res.render(path.join(__dirname, '..', '..', 'views', 'users', 'login_notuser.ejs'), {
             meta,
             layout: login_layout
         });
@@ -100,14 +111,14 @@ router.route('/add').get(
     async function (req, res) {
 
         try {
-            if (req.cookies.cookie) {
+            if (req.cookies[cookie_name]) {
                 const data = await posts.find();
 
                 const meta = {
                     name: "MongoXpress",
                 }
 
-                res.render('users/add', {
+                res.render(path.join(__dirname, '..', '..', 'views', 'users', 'add.ejs'), {
                     meta,
                     data,
                     layout: user_layout_nosearch
@@ -124,7 +135,7 @@ router.route('/add').get(
         async function (req, res) {
 
             try {
-                if (req.cookies.cookie) {
+                if (req.cookies[cookie_name]) {
                     const new_post = new posts({
                         title: req.body.title,
                         body: req.body.content
@@ -148,7 +159,7 @@ router.route('/add').get(
 router.get('/users/edit/:id', async (req, res) => {
 
     try {
-        if (req.cookies.cookie) {
+        if (req.cookies[cookie_name]) {
 
             const meta = {
                 name: "MongoXpress",
@@ -156,7 +167,7 @@ router.get('/users/edit/:id', async (req, res) => {
 
             const post_data = await posts.findOne({ _id: req.params.id });
 
-            res.render('users/edit', {
+            res.render(path.join(__dirname, '..', '..', 'views', 'users', 'edit.ejs'), {
                 meta,
                 post_data,
                 layout: user_layout_nosearch
@@ -176,13 +187,13 @@ router.get('/users/edit/:id', async (req, res) => {
 router.put('/edit/:id', async (req, res) => {
 
     try {
-        if (req.cookies.cookie) {
+        if (req.cookies[cookie_name]) {
             await posts.findByIdAndUpdate(req.params.id, {
                 title: req.body.title,
                 body: req.body.content,
                 update_date: Date.now()
             });
-            return res.redirect(`/users/profile`);
+            return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'profile.ejs'));
         }
         else {
             return res.redirect('/');
@@ -198,11 +209,11 @@ router.put('/edit/:id', async (req, res) => {
 router.delete('/erase/:id', async (req, res) => {
 
     try {
-        if (req.cookies.cookie) {
+        if (req.cookies[cookie_name]) {
             await posts.deleteOne({
                 _id: req.params.id
             });
-            return res.redirect(`/users/profile`);
+            return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'profile.ejs'));
         }
         else {
             return res.redirect('/');
@@ -247,13 +258,13 @@ router.route('/signup').get(
                 //const id = users.find({ id_1 });
 
                 if (user) {
-                    return res.redirect('/signup_err');
+                    return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'signup_err.ejs'));
                 }
 
                 else {
                     const user = await users.create({ username, email: sanitizedemail, password: hash });
                     const cokie = token.sign({ userId: user._id }, cookie_secret);
-                    res.cookie('cookie', cokie, { httpOnly: true });
+                    res.cookie('cookie', cokie, { httpOnly: true, path: '/' });
                     // if (id) {
                     //users.dropIndex({ id_1 });
                     // }
@@ -272,7 +283,7 @@ router.route('/signup').get(
                 }
             } catch (error) {
                 console.log(error);
-                return res.redirect('/signup_err');
+                return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'signup_err.ejs'));
             }
         });
 
@@ -286,7 +297,7 @@ router.get('/signup_err', async (req, res) => {
             name: "MongoXpress",
         }
 
-        res.render('users/signup_err', {
+        res.render(path.join(__dirname, '..', '..', 'views', 'users', 'signup_err.ejs'), {
             meta,
             layout: login_layout,
         });
@@ -303,7 +314,7 @@ router.get('/users/profile', async (req, res) => {
     let page = req.query.page || 1;
 
     try {
-        if (req.cookies.cookie) {
+        if (req.cookies[cookie_name]) {
             //const data = await posts.find();
             const data = await posts.find().sort({ date: -1 })
                 .skip(post_number * page - post_number)
@@ -321,7 +332,7 @@ router.get('/users/profile', async (req, res) => {
                 name: "MongoXpress",
             }
 
-            res.render('users/profile', {
+            res.render(path.join(__dirname, '..', '..', 'views', 'users', 'profile.ejs'), {
                 meta,
                 data,
                 layout: user_layout,
@@ -342,7 +353,7 @@ router.get('/users/profile', async (req, res) => {
 // ------------/
 
 router.get('/logout', (req, res) => {
-    res.clearCookie('cookie');
+    res.clearCookie('cookie', { httpOnly: true, path: '/' });
     return res.redirect('/');
 });
 
