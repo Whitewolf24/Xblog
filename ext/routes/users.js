@@ -184,7 +184,7 @@ router.get('/users/edit/:id', async (req, res) => {
 
 // ------------/
 
-router.put('/edit/:id', async (req, res) => {
+router.patch('/edit/:id', async (req, res) => {
 
     try {
         if (req.cookies[cookie_name]) {
