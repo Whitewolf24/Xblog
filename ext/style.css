@@ -106,3 +106,15 @@ header {
 #eye:hover:before {
     border: solid 1px rgb(161, 161, 170);
 }
+
+@media (max-height: 550px) {
+    .update-btn {
+        display: none;
+    }
+
+    .responsive-update-btn {
+        bottom: 9rem;
+        display: flex;
+        right: 5.5rem;
+    }
+}

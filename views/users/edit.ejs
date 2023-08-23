@@ -3,7 +3,7 @@
         Back</a>
     <div class="items-center justify-center flex text-center">
         <ul>
-            <form action="/edit/<%= post_data._id %>?_method=PUT" method="POST" class="mt-8">
+            <form action="/edit/<%= post_data._id %>?_method=PUT" method="POST">
 
                 <label for="title">
                     <span class="text-[clamp(0.85rem,2.5vw,0.95rem)] mr-2">Title</span>
@@ -16,7 +16,9 @@
                         class="bg-gray-200 h-[40vh] focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs p-4 text-gray-950 rounded-xl w-[50vw]"><%= post_data.body  %></textarea>
                 </li>
                 <button type="submit" value="update" id="edit_sub"
-                    class="border-solid border-white border-[1px] mt-5 text-[clamp(0.85rem,2.5vw,0.95rem)] p-2 rounded-xl hover:text-zinc-400">Update</button>
+                    class="border-solid border-white border-[1px] mt-5 text-[clamp(0.85rem,2.5vw,0.95rem)] p-2 rounded-xl hover:text-zinc-400 update-btn">Update</button>
+                <button type="submit" value="update"
+                    class="border-solid border-white border-[1px] hidden mt-5 text-[clamp(0.75rem,2.5vw,0.85rem)] p-2 relative rounded-xl hover:text-zinc-400 responsive-update-btn">Update</button>
             </form>
         </ul>
     </div>
