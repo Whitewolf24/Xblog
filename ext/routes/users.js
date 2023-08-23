@@ -193,7 +193,7 @@ router.patch('/edit/:id', async (req, res) => {
                 body: req.body.content,
                 update_date: Date.now()
             });
-            return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'profile.ejs'));
+            return res.redirect(path.join(__dirname, 'views', 'users', 'profile.ejs'));
         }
         else {
             return res.redirect('/');
@@ -213,7 +213,7 @@ router.delete('/erase/:id', async (req, res) => {
             await posts.deleteOne({
                 _id: req.params.id
             });
-            return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'profile.ejs'));
+            return res.redirect(path.join(__dirname, 'views', 'users', 'profile.ejs'));
         }
         else {
             return res.redirect('/');
