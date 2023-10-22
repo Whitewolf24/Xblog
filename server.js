@@ -21,7 +21,7 @@ serv.use(session({
     resave: false,
     saveUninitialized: true,
     store: mongostore.create({ mongoUrl: process.env.MONGO }),
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    cookie: { maxAge: 1 * 2 * 3600 * 1000 },
 }));
 
 serv.use(express.static('public'));
