@@ -19,10 +19,14 @@ serv.use(cookie());
 serv.use(session({
     secret: 'ntolmadkia',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: mongostore.create({ mongoUrl: process.env.MONGO }),
     cookie: { maxAge: 12 * 1 * 3600 * 1000 },
 }));
+
+window.addEventListener('beforeunload', function () {
+    serv.session.destroy();
+});
 
 serv.use(express.static('public'));
 serv.use(expressui);
