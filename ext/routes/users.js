@@ -258,7 +258,7 @@ router.route('/signup').get(
                 //const id = users.find({ id_1 });
 
                 if (user) {
-                    return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'signup_err.ejs'));
+                    return res.redirect('users/signup_err.ejs');
                 }
 
                 else {
@@ -283,7 +283,7 @@ router.route('/signup').get(
                 }
             } catch (error) {
                 console.log(error);
-                return res.redirect(path.join(__dirname, '..', '..', 'views', 'users', 'signup_err.ejs'));
+                return res.redirect('users/signup_err.ejs');
             }
         });
 
@@ -297,7 +297,8 @@ router.get('/signup_err', async (req, res) => {
             name: "MongoXpress",
         }
 
-        res.render(path.join(__dirname, '..', '..', 'views', 'users', 'signup_err.ejs'), {
+
+        res.render('users/signup_err', {
             meta,
             layout: login_layout,
         });
