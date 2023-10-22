@@ -24,9 +24,11 @@ serv.use(session({
     cookie: { maxAge: 12 * 1 * 3600 * 1000 },
 }));
 
-window.addEventListener('beforeunload', function () {
-    serv.session.destroy();
-});
+if (typeof window !== 'undefined') {
+    window.addEventListener('beforeunload', function () {
+        serv.session.destroy();
+    })
+}
 
 serv.use(express.static('public'));
 serv.use(expressui);
