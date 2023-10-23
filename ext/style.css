@@ -132,6 +132,14 @@ header {
             font-size: 1.8rem;
         }
 
+        .moz_search {
+            margin-left: -1rem !important;
+        }
+
+        /* .login {
+            margin-left: 0.5rem !important;
+        } */
+
         .signup {
             margin-right: 4.25rem;
         }
