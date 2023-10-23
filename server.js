@@ -44,11 +44,11 @@ serv.use('/', require('./ext/routes/users.js'));
 /* serv.get('/post/:id', function (reg, res) {
     res.sendFile("./css/style-min.css")
 });
- */
+ 
 
 serv.listen(port, () => {
     console.log(`Listening to port ${port}`);
-});
+});*/
 
 connectDB();
 

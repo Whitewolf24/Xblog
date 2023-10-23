@@ -128,7 +128,7 @@ router.get('/post/:id', async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 /* function post_data() {

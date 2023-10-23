@@ -118,3 +118,12 @@ header {
         right: 5.5rem;
     }
 }
+
+
+@media (hover: none) {
+    @supports (-moz-appearance:none) {
+        body {
+            transform: scale(0.9);
+        }
+    }
+}
