@@ -122,8 +122,14 @@ header {
 
 @media (hover: none) {
     @supports (-moz-appearance:none) {
+
+        :root,
+        body {
+            overflow-x: hidden;
+        }
+
         .mongox {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         .signup {
