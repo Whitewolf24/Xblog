@@ -122,8 +122,8 @@ header {
 
 @media (hover: none) {
     @supports (-moz-appearance:none) {
-        root {
-            transform: scale(0.9);
+        .mongox {
+            font-size: 0.6rem;
         }
     }
 }
