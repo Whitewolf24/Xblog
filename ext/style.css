@@ -119,6 +119,11 @@ header {
     }
 }
 
+@media screen and (max-width: 380px) {
+    .moz_search {
+        margin-left: -1.5rem !important;
+    }
+}
 
 @media (hover: none) {
     @supports (-moz-appearance:none) {
@@ -132,16 +137,18 @@ header {
             font-size: 1.8rem;
         }
 
-        .moz_search {
-            margin-left: -1rem !important;
-        }
 
-        /* .login {
+
+        .login {
             margin-left: 0.5rem !important;
-        } */
-
-        .signup {
-            margin-right: 4.25rem;
         }
+
+        /* .moz_search {
+            margin-left: -1.5rem !important;
+        }
+
+         .signup {
+            margin-right: 4.25rem;
+        } */
     }
 }
