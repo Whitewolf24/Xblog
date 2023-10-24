@@ -5,6 +5,7 @@ const router = express.Router();
 const users = require(path.join(__dirname, '..', 'schema', 'users'));
 const posts = require(path.join(__dirname, '..', 'schema', 'posts'));
 const cookie_parser = require('cookie-parser');
+const mongoose = require('mongoose');
 
 app.use(cookie_parser());
 
@@ -62,7 +63,7 @@ router.get('/', async (req, res) => {
             //res.send(html);
         }
     } catch (error) {
-        console.log(error);
+       //console.log(error);
     }
 });
 
@@ -99,7 +100,7 @@ router.post('/search', async (req, res) => {
         }
     }
     catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 

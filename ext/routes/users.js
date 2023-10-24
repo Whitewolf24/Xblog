@@ -7,6 +7,7 @@ const posts = require(path.join(__dirname, '..', 'schema', 'posts'));
 const bcrypt = require('bcrypt');
 const token = require('jsonwebtoken');
 const cookie_parser = require('cookie-parser');
+const { body, validationResult } = require('express-validator');
 
 app.use(cookie_parser());
 
@@ -17,8 +18,7 @@ const dirname = path.dirname(__filename); */
 
 const cookie_secret = process.env.COOKIE_SECRET;
 
-const { body, validationResult } = require('express-validator');
-const { sanitize } = require('express-validator');
+//const { sanitize } = require('express-validator');
 
 const login_layout = path.join(__dirname, '..', '..', 'views', 'layouts', 'login.ejs');
 const user_layout = path.join(__dirname, '..', '..', 'views', 'layouts', 'users.ejs');

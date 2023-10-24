@@ -1,15 +1,22 @@
 require('dotenv').config();
+const mongoose = require('mongoose');
 const express = require('express');
 const expressui = require('express-ejs-layouts');
 const override = require('method-override')
 const compression = require("compression");
 const serv = express();
 const port = 2700;
-const connectDB = require('./ext/db');
+//const connectDB = require('./ext/db');
 const session = require('express-session');
 const cookie = require('cookie-parser');
 const mongostore = require('connect-mongo');
 const helmet = require("helmet");
+const mustacheExpress = require('mustache-express');
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+//serv.use(express.static(path.join(__dirname, '../public')));
+serv.engine('mustache', mustacheExpress());
+serv.set('view engine', 'mustache');
 
 serv.use(function (req, res, next) {
     res.setHeader("Content-Security-Policy", "script-src 'self' 'unsafe-inline' localhost")
@@ -59,8 +66,34 @@ serv.use('/', require('./ext/routes/users.js'));
 });
  */
 
-serv.listen(port);
 //console.log(`Listening to port ${port}`);
 
+serv.use(function (req, res, next) {
+    if (!mongoose.connection.readyState) {
+        // Show the loader page
+        res.set('Content-Type', 'text/html');
+        res.send('<h2>Test String</h2>');
+    }
+    else if (mongoose.connection.readyState) {
+        next();
+    }
+});
+
+const connectDB = async () => {
+    try {
+        mongoose.set('strictQuery', false);
+        // await delay(5000);
+        await mongoose.connect(process.env.MONGO);
+    }
+    catch (error) {
+        //console.log(error);
+    }
+
+}
+
 connectDB();
+serv.listen(2700);
+
+
+
 
