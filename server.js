@@ -66,7 +66,7 @@ serv.use('/', require('./ext/routes/users.js'));
 
 //console.log(`Listening to port ${port}`);
 
-/* serv.use(function (req, res, next) {
+serv.use(function (req, res, next) {
     if (!mongoose.connection.readyState) {
         // Show the loader page
         res.set('Content-Type', 'text/html');
@@ -75,7 +75,7 @@ serv.use('/', require('./ext/routes/users.js'));
     else if (mongoose.connection.readyState) {
         next();
     }
-}); */
+});
 
 const connectDB = async () => {
     try {
