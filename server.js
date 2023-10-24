@@ -11,8 +11,7 @@ const session = require('express-session');
 const cookie = require('cookie-parser');
 const mongostore = require('connect-mongo');
 const helmet = require("helmet");
-const mustacheExpress = require('mustache-express');
-const delay = ms => new Promise(res => setTimeout(res, ms));
+//const delay = ms => new Promise(res => setTimeout(res, ms));
 
 //serv.use(express.static(path.join(__dirname, '../public')));
 
