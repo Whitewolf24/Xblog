@@ -3,18 +3,26 @@ const express = require('express');
 const expressui = require('express-ejs-layouts');
 const override = require('method-override')
 const compression = require("compression");
-const helmet = require("helmet");
 const serv = express();
 const port = 2700;
-
 const connectDB = require('./ext/db');
-
 const session = require('express-session');
 const cookie = require('cookie-parser');
 const mongostore = require('connect-mongo');
+const helmet = require("helmet");
+
+serv.use(function (req, res, next) {
+    res.setHeader("Content-Security-Policy", "script-src 'self' 'unsafe-inline' localhost")
+    next();
+});
 
 serv.use(compression());
-serv.use(helmet());
+serv.use(helmet.contentSecurityPolicy({
+    directives: {
+        "script-src": ["'self'", "'unsafe-inline'"],
+    },
+}),
+);
 
 serv.use(express.urlencoded({ extended: true }))
 serv.use(express.json());

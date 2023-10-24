@@ -38,7 +38,7 @@ router.route('/login').get(
                 layout: login_layout
             });
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }).post(
         async (req, res) => {
@@ -60,7 +60,7 @@ router.route('/login').get(
                 }
 
             } catch (error) {
-                console.log(error);
+                //console.log(error);
                 return res.redirect('/login_notuser');
             }
         });
@@ -80,7 +80,7 @@ router.get('/login_err', async (req, res) => {
             layout: login_layout
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 
@@ -99,7 +99,7 @@ router.get('/login_notuser', async (req, res) => {
             layout: login_layout
         });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 
@@ -129,7 +129,7 @@ router.route('/add').get(
             }
 
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }).post(
         async function (req, res) {
@@ -148,7 +148,7 @@ router.route('/add').get(
                 }
 
             } catch (error) {
-                console.log(error);
+                //console.log(error);
             }
         });
 
@@ -178,7 +178,7 @@ router.get('/users/edit/:id', async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 
@@ -200,7 +200,7 @@ router.patch('/edit/:id', async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 
@@ -220,7 +220,7 @@ router.delete('/erase/:id', async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 
@@ -240,7 +240,7 @@ router.route('/signup').get(
                 layout: login_layout,
             });
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }
     }).post
     (
@@ -334,7 +334,7 @@ router.get('/users/profile', async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
     }
 });
 
