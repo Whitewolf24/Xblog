@@ -29,6 +29,7 @@
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
     "method-override": "^3.0.0",
+    "minify": "^10.5.2",
     "mongoose": "^7.6.3",
     "nodemon": "^3.0.1",
     "postcss-cli": "^10.1.0",
