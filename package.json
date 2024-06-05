@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "20.8.1"
+    "node": "22.2.0"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "connect-mongo": "^5.1.0",
@@ -29,24 +29,24 @@
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
     "method-override": "^3.0.0",
-    "mongoose": "^7.6.3",
     "nodemon": "^3.0.1",
-    "postcss-cli": "^10.1.0",
-    "postcss-import": "^15.1.0",
     "postcss-nested": "^6.0.1",
     "redis": "^4.6.10",
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.1",
-    "css-loader": "^6.8.1",
-    "cssnano": "^6.0.1",
+    "css-loader": "^7.1.2",
+    "cssnano": "^7.0.1",
     "html-webpack-plugin": "^5.5.3",
+    "mongoose": "^8.4.1",
     "nodemon": "^3.0.1",
     "postcss": "^8.4.31",
-    "postcss-loader": "^7.3.3",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
+    "postcss-loader": "^8.1.1",
     "postcss-preset-env": "^9.2.0",
-    "style-loader": "^3.3.3",
+    "style-loader": "^4.0.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   }
