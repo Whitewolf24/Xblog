@@ -1,0 +1,55 @@
+<span class="font-semibold text-rose-700 mt-28 m-0 m-auto">Email not Found</span>
+<form action="/login" method="POST" class="mt-8">
+    <div class="flex justify-center items-center text-center">
+        <input type="email" placeholder="Email" name="email" id="login"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <input type="password" placeholder="Password" name="password" id="passw"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl ml-8 mt-3 mb-9 leading-3 w-56">
+        <span id="eye"></span>
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <button id="login_butt"
+            class="border-solid border-white border-[1px] p-2 mb-margin-about rounded-xl hover:text-zinc-400">Login</button>
+    </div>
+</form>
+
+<script>
+    const login = document.querySelector("#login");
+    const passw = document.querySelector("#passw");
+    const login_butt = document.querySelector("#login_butt");
+    const eye = document.querySelector("#eye");
+
+    login.addEventListener("input", function (e) {
+        login.value = login.value.trim();
+    });
+
+    passw.addEventListener("input", function (e) {
+        passw.value = passw.value.trim();
+    });
+
+    eye.addEventListener("click", function (e) {
+        if (passw.type == "password") {
+            passw.type = "text";
+        }
+        else {
+            passw.type = "password";
+        }
+    });
+
+
+    login_butt.addEventListener("click", function (e) {
+        if (login.value == "") {
+            e.preventDefault();
+            alert("Please enter your email");
+        }
+        if (passw.value == "") {
+            e.preventDefault();
+            alert("Please enter your password");
+        }
+        else {
+            return true;
+        }
+    });
+</script>

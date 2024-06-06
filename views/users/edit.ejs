@@ -1,0 +1,64 @@
+<section class="mt-28">
+    <a href="../profile" class="text text-sm ml-5 underline underline-offset-4 hover:text-zinc-400">&larr;
+        Back</a>
+    <div class="items-center justify-center flex text-center">
+        <ul>
+            <form action="/edit/<%= post_data._id %>?_method=PATCH" method="POST">
+
+                <label for="title">
+                    <span class="text-[clamp(0.85rem,2.5vw,0.95rem)] mr-2">Title</span>
+                </label>
+                <input type="text" name="title" value="<%= post_data.title  %>" id="title"
+                    class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs text-gray-950 px-4 mt-3 rounded-xl min-w-[80%] w-9/12">
+                </li>
+                <li class="mt-8">
+                    <textarea cols="50" rows="10" name="content" id="content"
+                        class="bg-gray-200 h-[40vh] focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs p-4 text-gray-950 rounded-xl w-[50vw]"><%= post_data.body  %></textarea>
+                </li>
+                <button type="submit" value="update" id="edit_sub"
+                    class="border-solid border-white border-[1px] mt-5 text-[clamp(0.85rem,2.5vw,0.95rem)] p-2 rounded-xl hover:text-zinc-400 update-btn">Update</button>
+                <button type="submit" value="update"
+                    class="border-solid border-white border-[1px] hidden mt-5 text-[clamp(0.75rem,2.5vw,0.85rem)] p-2 relative rounded-xl hover:text-zinc-400 responsive-update-btn">Update</button>
+            </form>
+        </ul>
+    </div>
+</section>
+
+<script>
+    const profile_butt = document.querySelector("#profile_butt");
+    const title = document.querySelector("#title");
+    const content = document.querySelector("#content");
+    const edit_sub = document.querySelector("#edit_sub");
+
+    profile_butt.style.display = "none";
+
+    edit_sub.addEventListener("click", function (e) {
+        if (title.value == "") {
+            e.preventDefault();
+            alert("Title can't be empty");
+        }
+        else if (title.value.length <= 4) {
+            e.preventDefault();
+            alert("Please use more than 4 characters in your title");
+        }
+        else if (title.value.length >= 28) {
+            e.preventDefault();
+            alert("Please use less than 28 characters in your title");
+        }
+        else if (content.value == "") {
+            e.preventDefault();
+            alert("Content can't be empty");
+        }
+        else if (content.value.length < 20) {
+            e.preventDefault();
+            alert("Please use more than 20 characters for your content");
+        }
+        else if (content.value.length > 4000) {
+            e.preventDefault();
+            alert("Please use more less than 4000 characters for your content");
+        }
+        else {
+            edit_sub.submit();
+        }
+    });
+</script>

@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="../css/style_min.css">
+<script type="text/javascript" defer src="../js/script.js"></script>
+<article class="mt-28 mb-margin-about">
+    <div class="flex justify-center items-center text-center">
+        <span class="text-r-l underline underline-offset-4 whitespace-nowrap">
+            <%= post_data.title %>
+        </span>
+    </div>
+    <div class="border-b-zinc-800 border-b-2 border-b flex m-0 m-auto w-7/12">
+        <p class="my-5 text-r-m posts">
+            <%= post_data.body %>
+        </p>
+    </div>
+    <div class="flex justify-center items-center text-center mt-8">
+        <span class="font-light text-r-t post_date">
+            Edited at <%= post_data.update_date.toDateString() %>
+        </span>
+    </div>
+    <div class="flex justify-center items-center text-center mt-3">
+        <span class="font-light text-r-t post_date">
+            Originally Posted at <%= post_data.date.toDateString() %>
+        </span>
+    </div>
+</article>
