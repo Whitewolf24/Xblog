@@ -1,13 +1,20 @@
-<header class="bg-gradient-to-b from-zinc-700 to-neutral-950 fixed top-0 mb-10 w-full z-50">
+<header class="bg-gradient-to-b from-zinc-700 to-neutral-950 fixed top-0 mb-10 w-full z-50 head">
     <ul class="flex">
         <li class="mr-[-2.4rem] md:mr-8">
             <a href="/">
-                <h1 class="mongox text-4xl font-bold p-4">
+                <h1 class="mongox text-3xl font-bold p-4 sm:text-3xl md:text-4xl">
                     <%= meta.name %>
                 </h1>
             </a>
         </li>
         <li class="m-0 m-auto pt-[0.6rem]">
+            <button class=" p-2 flex h-8 mb-2 ml-[32vw] w-9 sm:hidden md:hidden burger">
+                <svg class=" text-white h-6 w-7 hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 32 32" fill="currentColor">
+                    <path
+                        d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,22,28,22z" />
+                </svg>
+            </button>
             <form class="mr-[6rem] items-center flex relative search_form" method="POST" role="search" action="/search">
                 <input
                     class="bg-gray-200 h-9 hidden focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs text-gray-950 px-4 relative rounded-xl leading-3 min-w-[80%] w-9/12 md:flex search_inp"
@@ -25,7 +32,7 @@
         </li>
         <div class="moz_search pt-[1.3rem]">
             <li>
-                <button class=" p-2 flex h-8 mb-2 ml-[-2rem] w-9 md:hidden md:ml-6 search" id="search_butt">
+                <button class=" p-2 hidden h-8 mb-2 ml-[-2rem] w-9 sm:flex md:hidden md:ml-6 search" id="search_butt">
                     <svg class="text-white h-6 w-7 hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
@@ -36,15 +43,34 @@
             </li>
         </div>
         </form>
-        <li class="login mt-[1.9rem] ml-4 text-r-m hover:text-zinc-400 md:ml-9">
+        <li class="login hidden mt-[1.9rem] ml-4 text-r-m hover:text-zinc-400 sm:flex md:ml-9">
             <a href="/login">
                 Login
             </a>
         </li>
-        <li class="signup mt-[1.9rem] mr-5 ml-5 text-r-m hover:text-zinc-400 md:ml-9">
+        <li class="signup hidden mt-[1.9rem] mr-5 ml-5 text-r-m hover:text-zinc-400 sm:flex md:ml-9">
             <a href="/signup">
                 Signup
             </a>
         </li>
     </ul>
+    <div class="hidden fixed top-16 left-[82.5%] transform -translate-x-1/2 bg-gradient-to-b from-stone-700 to-neutral-900 rounded-lg"
+        id="menu">
+        <div class="px-2 pt-2 cursor-pointer hover:text-zinc-400">
+            <button class=" p-2 h-8 w-9 md:flex search" id="search_butt_mini">
+                <svg class="text-white hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+        <div class="px-4 py-2 cursor-pointer hover:text-zinc-400"> <a href="/login">
+                Login
+            </a></div>
+        <div class="px-4 mb-4 cursor-pointer hover:text-zinc-400"> <a href="/Signup">
+                Signup
+            </a></div>
+    </div>
 </header>

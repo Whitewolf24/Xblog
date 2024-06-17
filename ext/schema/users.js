@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema
     ({
         username: {
-            type: Number,
-            required: false,
+            type: String,
+            required: true,
             unique: true
         },
         email: {
@@ -18,6 +18,8 @@ const userSchema = new Schema
             required: true,
             unique: false
         },
+        reset_password_token: String,
+        reset_password_expired: Date
     });
 
 module.exports = mongoose.model('User', userSchema);

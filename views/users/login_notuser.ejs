@@ -1,7 +1,8 @@
-<span class="font-semibold text-rose-700 mt-28 m-0 m-auto">Email not Found</span>
-<form action="/login" method="POST" class="mt-8">
+<span class="break-words font-semibold text-rose-700 mt-[25vh] mb-[2rem] mx-auto w-[32]">User not found. Please <a
+        href="/signup">Sign Up</a></span>
+<form action="/login" method="POST">
     <div class="flex justify-center items-center text-center">
-        <input type="email" placeholder="Email" name="email" id="login"
+        <input type="username" placeholder="Username" name="username" id="login"
             class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
     </div>
     <div class="flex justify-center items-center text-center">
@@ -13,43 +14,13 @@
         <button id="login_butt"
             class="border-solid border-white border-[1px] p-2 mb-margin-about rounded-xl hover:text-zinc-400">Login</button>
     </div>
+    <div class="flex justify-center items-center text-center mt-4">
+        <a href="/forgot_passw"
+            class="border-solid border-white border-[1px] p-2 mb-margin-about rounded-xl hover:text-zinc-400">Forgot
+            Password?</a>
+    </div>
 </form>
 
 <script>
-    const login = document.querySelector("#login");
-    const passw = document.querySelector("#passw");
-    const login_butt = document.querySelector("#login_butt");
-    const eye = document.querySelector("#eye");
-
-    login.addEventListener("input", function (e) {
-        login.value = login.value.trim();
-    });
-
-    passw.addEventListener("input", function (e) {
-        passw.value = passw.value.trim();
-    });
-
-    eye.addEventListener("click", function (e) {
-        if (passw.type == "password") {
-            passw.type = "text";
-        }
-        else {
-            passw.type = "password";
-        }
-    });
-
-
-    login_butt.addEventListener("click", function (e) {
-        if (login.value == "") {
-            e.preventDefault();
-            alert("Please enter your email");
-        }
-        if (passw.value == "") {
-            e.preventDefault();
-            alert("Please enter your password");
-        }
-        else {
-            return true;
-        }
-    });
+    function _0x50d1(_0x16361e, _0x32b11b) { const _0x465bd8 = _0x465b(); return _0x50d1 = function (_0x50d192, _0x289ace) { _0x50d192 = _0x50d192 - 0x1a3; let _0x541d82 = _0x465bd8[_0x50d192]; return _0x541d82; }, _0x50d1(_0x16361e, _0x32b11b); } const _0x25a415 = _0x50d1; (function (_0x4bf80a, _0x23386d) { const _0x4a427d = _0x50d1, _0x451eb8 = _0x4bf80a(); while (!![]) { try { const _0x52ff9b = -parseInt(_0x4a427d(0x1ab)) / 0x1 * (-parseInt(_0x4a427d(0x1b3)) / 0x2) + -parseInt(_0x4a427d(0x1a4)) / 0x3 * (parseInt(_0x4a427d(0x1af)) / 0x4) + -parseInt(_0x4a427d(0x1ad)) / 0x5 * (-parseInt(_0x4a427d(0x1ac)) / 0x6) + parseInt(_0x4a427d(0x1b9)) / 0x7 + parseInt(_0x4a427d(0x1aa)) / 0x8 + parseInt(_0x4a427d(0x1b6)) / 0x9 + -parseInt(_0x4a427d(0x1b1)) / 0xa; if (_0x52ff9b === _0x23386d) break; else _0x451eb8['push'](_0x451eb8['shift']()); } catch (_0x5e668b) { _0x451eb8['push'](_0x451eb8['shift']()); } } }(_0x465b, 0xb02d1)); const login = document[_0x25a415(0x1b0)]('#login'), passw = document[_0x25a415(0x1b0)](_0x25a415(0x1a3)), login_butt = document[_0x25a415(0x1b0)](_0x25a415(0x1b8)), eye = document[_0x25a415(0x1b0)]('#eye'); login['addEventListener'](_0x25a415(0x1ae), function (_0x446c17) { const _0x18bd39 = _0x25a415; login[_0x18bd39(0x1b2)] = login['value']['trim'](); }), passw['addEventListener']('input', function (_0x35a012) { const _0x4542a9 = _0x25a415; passw['value'] = passw[_0x4542a9(0x1b2)][_0x4542a9(0x1b5)](); }), eye[_0x25a415(0x1a7)](_0x25a415(0x1a5), function (_0x4efb01) { const _0x2c5883 = _0x25a415; passw[_0x2c5883(0x1b4)] == _0x2c5883(0x1a6) ? passw[_0x2c5883(0x1b4)] = _0x2c5883(0x1b7) : passw[_0x2c5883(0x1b4)] = _0x2c5883(0x1a6); }), login_butt[_0x25a415(0x1a7)](_0x25a415(0x1a5), function (_0x1bace2) { const _0x5a348d = _0x25a415; login[_0x5a348d(0x1b2)] == '' && (_0x1bace2['preventDefault'](), alert(_0x5a348d(0x1a8))); if (passw[_0x5a348d(0x1b2)] == '') _0x1bace2[_0x5a348d(0x1a9)](), alert('Please\x20enter\x20your\x20password'); else return !![]; }); function _0x465b() { const _0x566d01 = ['8790872qfhpRo', '93543gJmsxD', '6SWubVU', '401765muOxhW', 'input', '636860VvDQYw', 'querySelector', '13232870vLfzaG', 'value', '4YbfWKR', 'type', 'trim', '955980dSeuno', 'text', '#login_butt', '8464722EwuHAm', '#passw', '12TDmPxt', 'click', 'password', 'addEventListener', 'Please\x20enter\x20your\x20email', 'preventDefault']; _0x465b = function () { return _0x566d01; }; return _0x465b(); }
 </script>

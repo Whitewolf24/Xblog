@@ -1,7 +1,10 @@
-<span class="font-semibold text-rose-700 mt-28 m-0 m-auto">Wrong Password</span>
-<form action="/login" method="POST" class="mt-8">
+<span class="break-words font-semibold text-rose-700 mt-[35vh] mb-6 mx-auto w-30">Wrong password. If you can't
+    remember your password you can ask to <a href="/forgot_passw" class="text-rose-800 underline hover:text-white">reset
+        it.</a></span>
+
+<form action="/login" method="POST">
     <div class="flex justify-center items-center text-center">
-        <input type="email" placeholder="Email" name="email" id="login"
+        <input type="username" placeholder="Username" name="username" id="login"
             class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
     </div>
     <div class="flex justify-center items-center text-center">
@@ -16,40 +19,5 @@
 </form>
 
 <script>
-    const login = document.querySelector("#login");
-    const passw = document.querySelector("#passw");
-    const login_butt = document.querySelector("#login_butt");
-    const eye = document.querySelector("#eye");
-
-    login.addEventListener("input", function (e) {
-        login.value = login.value.trim();
-    });
-
-    passw.addEventListener("input", function (e) {
-        passw.value = passw.value.trim();
-    });
-
-    eye.addEventListener("click", function (e) {
-        if (passw.type == "password") {
-            passw.type = "text";
-        }
-        else {
-            passw.type = "password";
-        }
-    });
-
-
-    login_butt.addEventListener("click", function (e) {
-        if (login.value == "") {
-            e.preventDefault();
-            alert("Please enter your email");
-        }
-        if (passw.value == "") {
-            e.preventDefault();
-            alert("Please enter your password");
-        }
-        /*  else {
-             return true;
-         } */
-    });
+    function _0x47fb(_0x220b15, _0x3540ff) { const _0x37a39a = _0x37a3(); return _0x47fb = function (_0x47fb04, _0x3bea5f) { _0x47fb04 = _0x47fb04 - 0x1ee; let _0x5960fe = _0x37a39a[_0x47fb04]; return _0x5960fe; }, _0x47fb(_0x220b15, _0x3540ff); } const _0x10d93e = _0x47fb; (function (_0x25adb0, _0x497252) { const _0x275316 = _0x47fb, _0x32405e = _0x25adb0(); while (!![]) { try { const _0xf4efcc = -parseInt(_0x275316(0x1f8)) / 0x1 * (-parseInt(_0x275316(0x1f7)) / 0x2) + -parseInt(_0x275316(0x1f5)) / 0x3 * (parseInt(_0x275316(0x1f0)) / 0x4) + -parseInt(_0x275316(0x200)) / 0x5 + parseInt(_0x275316(0x1ef)) / 0x6 + -parseInt(_0x275316(0x1f6)) / 0x7 * (-parseInt(_0x275316(0x1ff)) / 0x8) + parseInt(_0x275316(0x1f9)) / 0x9 * (-parseInt(_0x275316(0x1fe)) / 0xa) + parseInt(_0x275316(0x1f1)) / 0xb; if (_0xf4efcc === _0x497252) break; else _0x32405e['push'](_0x32405e['shift']()); } catch (_0x2806fa) { _0x32405e['push'](_0x32405e['shift']()); } } }(_0x37a3, 0x2da7d)); function _0x37a3() { const _0x22043b = ['#login_butt', '667659iYtTKW', '100933YIxxWz', '942lVXfyh', '690IbwHoA', '18cwdpuJ', '#passw', 'password', 'addEventListener', 'preventDefault', '852830ffLtZH', '136WMXvEN', '1865170zUvYId', 'click', 'value', 'querySelector', 'text', '898464llLBqJ', '4PtWdjx', '2566311DOCqIr', '#login', 'trim']; _0x37a3 = function () { return _0x22043b; }; return _0x37a3(); } const login = document[_0x10d93e(0x203)](_0x10d93e(0x1f2)), passw = document[_0x10d93e(0x203)](_0x10d93e(0x1fa)), login_butt = document['querySelector'](_0x10d93e(0x1f4)), eye = document[_0x10d93e(0x203)]('#eye'); login[_0x10d93e(0x1fc)]('input', function (_0x3c2fbd) { const _0x20e762 = _0x10d93e; login[_0x20e762(0x202)] = login[_0x20e762(0x202)]['trim'](); }), passw['addEventListener']('input', function (_0x296764) { const _0x5dc878 = _0x10d93e; passw['value'] = passw[_0x5dc878(0x202)][_0x5dc878(0x1f3)](); }), eye['addEventListener'](_0x10d93e(0x201), function (_0x23c636) { const _0x3316e1 = _0x10d93e; passw['type'] == _0x3316e1(0x1fb) ? passw['type'] = _0x3316e1(0x1ee) : passw['type'] = _0x3316e1(0x1fb); }), login_butt['addEventListener']('click', function (_0x3916e1) { const _0x2d36ca = _0x10d93e; login['value'] == '' && (_0x3916e1[_0x2d36ca(0x1fd)](), alert('Please\x20enter\x20your\x20email')), passw[_0x2d36ca(0x202)] == '' && (_0x3916e1[_0x2d36ca(0x1fd)](), alert('Please\x20enter\x20your\x20password')); });
 </script>

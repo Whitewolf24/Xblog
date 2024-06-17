@@ -1,6 +1,6 @@
-<form action="/login" method="POST" class="mt-28">
+<form action="/login" method="POST" class="my-[30vh] mx-0">
     <div class="flex justify-center items-center text-center">
-        <input type="email" placeholder="Email" name="email" id="login"
+        <input type="username" placeholder="Username" name="username" id="login"
             class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
     </div>
     <div class="flex justify-center items-center text-center">
@@ -12,45 +12,14 @@
         <button id="login_butt"
             class="border-solid border-white border-[1px] p-2 mb-margin-about rounded-xl hover:text-zinc-400">Login</button>
     </div>
+    <div class="flex justify-center items-center text-center mt-4">
+        <a href="/forgot_passw"
+            class="border-solid border-white border-[1px] p-2 mb-margin-about rounded-xl hover:text-zinc-400">Forgot
+            Password?</a>
+    </div>
 </form>
 
+
 <script>
-    const login = document.querySelector("#login");
-    const passw = document.querySelector("#passw");
-    const login_butt = document.querySelector("#login_butt");
-    const eye = document.querySelector("#eye");
-
-    login.addEventListener("input", function (e) {
-        login.value = login.value.trim();
-    });
-
-    passw.addEventListener("input", function (e) {
-        passw.value = passw.value.trim();
-    });
-
-    eye.addEventListener("click", function (e) {
-        if (passw.type == "password") {
-            passw.type = "text";
-        }
-        else {
-            passw.type = "password";
-        }
-    });
-
-
-    login_butt.addEventListener("click", function (e) {
-
-        if (login.value == "") {
-            e.preventDefault();
-            alert("Please enter your email");
-        }
-        if (passw.value == "") {
-            e.preventDefault();
-            alert("Please enter your password");
-        }
-        else {
-            return true;
-        }
-    });
-
+    const _0x1156a0 = _0x33c7; (function (_0x71fb61, _0x1ace42) { const _0xdcf957 = _0x33c7, _0x236892 = _0x71fb61(); while (!![]) { try { const _0x4376cd = parseInt(_0xdcf957(0xbe)) / 0x1 + parseInt(_0xdcf957(0xb5)) / 0x2 + -parseInt(_0xdcf957(0xbf)) / 0x3 * (parseInt(_0xdcf957(0xb0)) / 0x4) + parseInt(_0xdcf957(0xb7)) / 0x5 + parseInt(_0xdcf957(0xc0)) / 0x6 * (parseInt(_0xdcf957(0xc3)) / 0x7) + parseInt(_0xdcf957(0xbc)) / 0x8 * (parseInt(_0xdcf957(0xb2)) / 0x9) + -parseInt(_0xdcf957(0xb1)) / 0xa; if (_0x4376cd === _0x1ace42) break; else _0x236892['push'](_0x236892['shift']()); } catch (_0xad694a) { _0x236892['push'](_0x236892['shift']()); } } }(_0x29a2, 0x4ce49)); function _0x29a2() { const _0x3c823c = ['6FhvqvG', 'querySelector', 'input', '32137DDvCFy', 'trim', 'type', '#login_butt', 'Please\x20enter\x20your\x20email', '189928BVRZqP', '6926760cZWkhe', '843354bUAlFs', '#passw', 'Please\x20enter\x20your\x20password', '887344olxAkb', '#login', '2651130YuJCdm', 'click', 'preventDefault', 'text', 'addEventListener', '40BPVnlD', 'value', '35430aDFgji', '30TjqZLW']; _0x29a2 = function () { return _0x3c823c; }; return _0x29a2(); } function _0x33c7(_0xc97146, _0xe9227a) { const _0x29a2b9 = _0x29a2(); return _0x33c7 = function (_0x33c70e, _0x31ebcb) { _0x33c70e = _0x33c70e - 0xae; let _0x588fb9 = _0x29a2b9[_0x33c70e]; return _0x588fb9; }, _0x33c7(_0xc97146, _0xe9227a); } const login = document[_0x1156a0(0xc1)](_0x1156a0(0xb6)), passw = document[_0x1156a0(0xc1)](_0x1156a0(0xb3)), login_butt = document['querySelector'](_0x1156a0(0xae)), eye = document[_0x1156a0(0xc1)]('#eye'); login[_0x1156a0(0xbb)](_0x1156a0(0xc2), function (_0x2d95b1) { const _0x48ed9a = _0x1156a0; login[_0x48ed9a(0xbd)] = login[_0x48ed9a(0xbd)][_0x48ed9a(0xc4)](); }), passw['addEventListener'](_0x1156a0(0xc2), function (_0x2cd53f) { const _0x56f0db = _0x1156a0; passw[_0x56f0db(0xbd)] = passw[_0x56f0db(0xbd)][_0x56f0db(0xc4)](); }), eye[_0x1156a0(0xbb)](_0x1156a0(0xb8), function (_0xaaed9e) { const _0x16e4c3 = _0x1156a0; passw[_0x16e4c3(0xc5)] == 'password' ? passw[_0x16e4c3(0xc5)] = _0x16e4c3(0xba) : passw['type'] = 'password'; }), login_butt[_0x1156a0(0xbb)]('click', function (_0x11468d) { const _0x1fdbb5 = _0x1156a0; login['value'] == '' && (_0x11468d[_0x1fdbb5(0xb9)](), alert(_0x1fdbb5(0xaf))); if (passw[_0x1fdbb5(0xbd)] == '') _0x11468d[_0x1fdbb5(0xb9)](), alert(_0x1fdbb5(0xb4)); else return !![]; });
 </script>

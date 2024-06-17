@@ -2,12 +2,19 @@
     <ul class="flex">
         <li class="mr-[-2.4rem] md:mr-8">
             <a href="/">
-                <h1 class="mongox text-4xl font-bold p-4">
+                <h1 class="mongox text-3xl font-bold p-4 sm:text-3xl md:text-4xl">
                     <%= meta.name %>
                 </h1>
             </a>
         </li>
         <li class="m-0 m-auto pt-[0.6rem]">
+            <button class=" p-2 flex h-8 mb-2 ml-[32vw] w-9 sm:hidden md:hidden burger">
+                <svg class=" text-white h-6 w-7 hover:text-zinc-400" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 32 32" fill="currentColor">
+                    <path
+                        d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,22,28,22z" />
+                </svg>
+            </button>
             <form class="mr-[6rem] items-center flex relative search_form" method="POST" role="search" action="/search">
                 <input
                     class="bg-gray-200 h-9 hidden focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-xs text-gray-950 px-4 relative rounded-xl leading-3 min-w-[80%] w-9/12 md:flex search_inp"

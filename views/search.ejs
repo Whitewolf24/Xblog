@@ -1,26 +1,34 @@
 <link rel="stylesheet" href="../css/style_min.css">
 <script type="text/javascript" defer src="../js/script.js"></script>
 <section class="mt-28 z-10 articles">
-    <h2 class="articles_title font-bold text-2xl ml-margin-lp"> Search Results</h2>
+    <h2 class="articles_title font-bold text-2xl ml-margin-lp"> Search Results:
+    </h2>
     <ul class="mt-6 posts_ul">
 
-        <% search_data.forEach(post=> { %>
-            <li class="border-b-zinc-800 border-b-2 border-b mb-11">
-                <a href="/post/<%= post._id %>">
-                    <span class="ml-margin-titles text-r-l whitespace-nowrap hover:text-zinc-400">
-                        <%= post.title %>
-                    </span></a>
-                <div class="flex m-0 m-auto w-7/12">
-                    <p class="my-2 line-clamp-4 hyphens-auto text-r-m posts">
-                        <%= post.body %>
-                    </p>
-                </div>
-                <div class="mb-11 ml-margin-date">
-                    <span class="font-light text-r-s post_date">
-                        - <%= post.date.toDateString() %>
-                    </span>
-                </div>
-            </li>
-            <% }) %>
+        <% if (search_data.length===0) { %>
+            <div
+                class="border-b-zinc-800 border-b-2 border-b flex justify-center items-center text-center pb-5 mt-[30vh] mx-auto w-64">
+                <p>No posts with your search query was found.</p>
+            </div>
+            <% } else { %>
+                <% search_data.forEach(post=> { %>
+                    <li class="border-b-zinc-800 border-b-2 border-b mb-11">
+                        <a href="/post/<%= post._id %>">
+                            <span class="ml-margin-titles text-r-l whitespace-nowrap hover:text-zinc-400">
+                                <%= post.title %>
+                            </span></a>
+                        <div class="flex m-0 m-auto w-7/12">
+                            <p class="my-2 line-clamp-4 hyphens-auto text-r-m posts">
+                                <%= post.body %>
+                            </p>
+                        </div>
+                        <div class="mb-11 ml-margin-date">
+                            <span class="font-light text-r-s post_date">
+                                - <%= post.date.toDateString() %>
+                            </span>
+                        </div>
+                    </li>
+                    <% }) %>
+                        <% } %>
     </ul>
 </section>

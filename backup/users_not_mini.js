@@ -90,12 +90,17 @@ router
                 l = k.trim(),
                 g = d.trim(),
                 h = await bcrypt.hash(g, 10);
+            let test_user;
 
             try {
+
+                // No duplicate found, proceed with creating the user or setting cookies
                 const new_user = await users.create({ username: l, email: f, password: h });
-                const new_token = token.sign({ userId: new_user._id }, cookie_secret);
-                b.cookie("cookie", new_token, { httpOnly: true, path: "/" })
-                return b.redirect("/");
+                let e = Math.floor(1e9 * Math.random());
+                test_user = new_user;
+                const jw = jwt.sign({ userId: e._id }, cookie_secret);
+                return b.cookie("cookie", jw, { httpOnly: true, path: "/" }), b.redirect("/");
+
             } catch (error) {
                 if (error.code === 11000) {
                     if (error.keyPattern && error.keyPattern.username) {
@@ -105,8 +110,11 @@ router
                         return b.render(path.join(__dirname, "..", "..", "views", "users", "signup_err_mail.ejs"), { meta: { name: "MongoXpress" }, layout: login_layout });
                     }
                 }
-                else
+
+                else if (!test_user) {
+                    // Handle other errors
                     return b.render(path.join(__dirname, "..", "..", "views", "users", "signup_err.ejs"), { meta: { name: "MongoXpress" }, layout: login_layout });
+                }
             }
         }),
     router.get("/users/profile", async (a, b) => {

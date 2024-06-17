@@ -25,40 +25,5 @@
 </section>
 
 <script>
-    const profile_butt = document.querySelector("#profile_butt");
-    const title = document.querySelector("#title");
-    const content = document.querySelector("#content");
-    const edit_sub = document.querySelector("#edit_sub");
-
-    profile_butt.style.display = "none";
-
-    edit_sub.addEventListener("click", function (e) {
-        if (title.value == "") {
-            e.preventDefault();
-            alert("Title can't be empty");
-        }
-        else if (title.value.length <= 4) {
-            e.preventDefault();
-            alert("Please use more than 4 characters in your title");
-        }
-        else if (title.value.length >= 28) {
-            e.preventDefault();
-            alert("Please use less than 28 characters in your title");
-        }
-        else if (content.value == "") {
-            e.preventDefault();
-            alert("Content can't be empty");
-        }
-        else if (content.value.length < 20) {
-            e.preventDefault();
-            alert("Please use more than 20 characters for your content");
-        }
-        else if (content.value.length > 4000) {
-            e.preventDefault();
-            alert("Please use more less than 4000 characters for your content");
-        }
-        else {
-            edit_sub.submit();
-        }
-    });
+    function _0xd44d() { const _0x2ad9ac = ['preventDefault', 'length', '407nsYSMt', 'querySelector', 'display', 'Title\x20can\x27t\x20be\x20empty', 'submit', 'addEventListener', '2352144bZYoZV', '534790kycCcD', '65tFQNhR', 'Please\x20use\x20more\x20than\x204\x20characters\x20in\x20your\x20title', 'Please\x20use\x20more\x20less\x20than\x204000\x20characters\x20for\x20your\x20content', '2fNwVYd', '#content', '1407mQPqox', '123996ZXUiuU', 'value', '2004261IZdeZP', 'click', '#profile_butt', 'style', '343403RGCULq', '1510362UTZhHl', 'Please\x20use\x20less\x20than\x2028\x20characters\x20in\x20your\x20title', '3244svFHZE']; _0xd44d = function () { return _0x2ad9ac; }; return _0xd44d(); } const _0x502f70 = _0x5e03; (function (_0x3eeb27, _0x34a547) { const _0x2c20a1 = _0x5e03, _0x5aebfd = _0x3eeb27(); while (!![]) { try { const _0x428936 = -parseInt(_0x2c20a1(0x84)) / 0x1 * (parseInt(_0x2c20a1(0x7b)) / 0x2) + -parseInt(_0x2c20a1(0x7d)) / 0x3 * (parseInt(_0x2c20a1(0x6d)) / 0x4) + parseInt(_0x2c20a1(0x78)) / 0x5 * (-parseInt(_0x2c20a1(0x7e)) / 0x6) + -parseInt(_0x2c20a1(0x80)) / 0x7 + -parseInt(_0x2c20a1(0x76)) / 0x8 + -parseInt(_0x2c20a1(0x6b)) / 0x9 + -parseInt(_0x2c20a1(0x77)) / 0xa * (-parseInt(_0x2c20a1(0x70)) / 0xb); if (_0x428936 === _0x34a547) break; else _0x5aebfd['push'](_0x5aebfd['shift']()); } catch (_0x1c0ccb) { _0x5aebfd['push'](_0x5aebfd['shift']()); } } }(_0xd44d, 0x3a240)); function _0x5e03(_0x506324, _0x1b95d2) { const _0xd44d09 = _0xd44d(); return _0x5e03 = function (_0x5e0356, _0x484cb6) { _0x5e0356 = _0x5e0356 - 0x6b; let _0x583065 = _0xd44d09[_0x5e0356]; return _0x583065; }, _0x5e03(_0x506324, _0x1b95d2); } const profile_butt = document[_0x502f70(0x71)](_0x502f70(0x82)), title = document[_0x502f70(0x71)]('#title'), content = document['querySelector'](_0x502f70(0x7c)), edit_sub = document['querySelector']('#edit_sub'); profile_butt[_0x502f70(0x83)][_0x502f70(0x72)] = 'none', edit_sub[_0x502f70(0x75)](_0x502f70(0x81), function (_0x185806) { const _0x3aa304 = _0x502f70; if (title[_0x3aa304(0x7f)] == '') _0x185806[_0x3aa304(0x6e)](), alert(_0x3aa304(0x73)); else { if (title[_0x3aa304(0x7f)][_0x3aa304(0x6f)] <= 0x4) _0x185806[_0x3aa304(0x6e)](), alert(_0x3aa304(0x79)); else { if (title[_0x3aa304(0x7f)][_0x3aa304(0x6f)] >= 0x1c) _0x185806[_0x3aa304(0x6e)](), alert(_0x3aa304(0x6c)); else { if (content[_0x3aa304(0x7f)] == '') _0x185806['preventDefault'](), alert('Content\x20can\x27t\x20be\x20empty'); else { if (content[_0x3aa304(0x7f)][_0x3aa304(0x6f)] < 0x14) _0x185806[_0x3aa304(0x6e)](), alert('Please\x20use\x20more\x20than\x2020\x20characters\x20for\x20your\x20content'); else content[_0x3aa304(0x7f)]['length'] > 0xfa0 ? (_0x185806[_0x3aa304(0x6e)](), alert(_0x3aa304(0x7a))) : edit_sub[_0x3aa304(0x74)](); } } } } });
 </script>
