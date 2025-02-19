@@ -1,39 +1,22 @@
-# syntax = docker/dockerfile:1
+# Use the slim Node.js 23.7.0 image as the base
+FROM node:23.7.0-slim as base
 
-# Adjust NODE_VERSION as desired
-ARG NODE_VERSION=23.7.0
-FROM node:${NODE_VERSION}-slim as base
+# Set the working directory inside the container
+WORKDIR /var/www
 
-LABEL fly_launch_runtime="Node.js"
+# Install dependencies
+COPY package*.json ./
 
-# Node.js app lives here
-WORKDIR /app
+RUN npm install --only=production
 
-# Set production environment
-ENV NODE_ENV="production"
+# Copy your application files into the container
+COPY . .
 
+# Build CSS assets (optional, if you’re using PostCSS, Tailwind, etc.)
+RUN npm run css
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
-
-# Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install -y build-essential pkg-config python-is-python3
-
-# Install node modules
-COPY --link package-lock.json package.json ./
-RUN npm ci
-
-# Copy application code
-COPY --link . .
-
-
-# Final stage for app image
-FROM base
-
-# Copy built application
-COPY --from=build /app /app
-
-# Start the server by default, this can be overwritten at runtime
+# Expose the port the app will run on
 EXPOSE 3000
-CMD [ "npm", "run", "start" ]
+
+# Set the default command to run your app
+CMD ["node", "server.js"]
