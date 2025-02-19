@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="../../css/style_min.css">
+<script type="text/javascript" defer src="../../js/script.js"></script>
+<div class="flex flex-col">
+    <div class="author">
+        <h1 class="author_name"></h1>
+        <p class="author_comment"></p>
+    </div>
+    <!-- <img src="path.jpg" alt="path through field to the clouds" class="author_photo m-0 m-auto pb-10" width="220"
+        height="112"> -->
+
+    <section class="mt-28 z-10 articles">
+
+        <% if (no_posts) { %>
+            <div class="border-solid border-white border-[1px] p-2 rounded-xl text-center"
+                style="justify-self: center; margin-top: 20rem; width: 55ch;">
+                <p>
+                    You haven't posted anything yet. Why don't you <a href="/add" class="underline add_link">create</a>
+                    your fist post now?
+                </p>
+            </div>
+            <% } else { %>
+                <ul class="mt-8 posts_ul">
+                    <div class="flex flex-row float-right relative bottom-5 right-7">
+                        <a class="border-solid border-white border-[1px] p-2 text-r-s rounded-xl hover:bg-zinc-700"
+                            href="/add">Create
+                            Post</a>
+                    </div>
+                    <% data.forEach(post=> { %>
+                        <li class="border-b-zinc-800 border-b-2 mb-9 ml-6 relative line-clamp-4 break-words posts_li">
+                            <a href="/post/<%= post._id %>" style="display: block; width: 65vw;">
+                                <span
+                                    class="text-[clamp(0.75rem,2.5vw,0.85rem)] hover:text-zinc-400 posts_edit sm:text-[clamp(0.85rem,2.5vw,0.95rem)]">
+                                    <%= post.title %>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="flex flex-row float-right relative bottom-[4.4rem] right-4 edit_butt z-40">
+                            <a href="edit/<%= post._id %>"
+                                class="bg-black border-solid border-white border-[1px] p-2 relative mr-4 text-r-s rounded-xl hover:bg-zinc-700">Edit</a>
+                            <!-- <div class="flex m-0 m-auto w-7/12">
+                        <p class="my-2 line-clamp-4 hyphens-auto text-r-m posts">
+                          //  <%= post.body %>
+                        </p>
+                    </div>
+                    <div class="mb-11 ml-margin-date">
+                        <span class="font-light text-r-s post_date">
+                           // - <%= post.date.toDateString() %>
+                        </span>
+                    </div> -->
+                            <form action="/erase/<%= post._id %>?_method=DELETE" method="POST">
+                                <button
+                                    class="bg-black border-solid border-white border-[1px] p-2 text-r-s rounded-xl hover:bg-zinc-700">
+                                    Delete
+                                </button>
+                            </form>
+                        </li>
+                        <% }) }%>
+
+                </ul>
+    </section>
+
+</div>

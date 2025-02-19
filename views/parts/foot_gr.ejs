@@ -1,0 +1,27 @@
+<footer class="fixed bottom-0 bg-gradient-to-b from-neutral-950 to-zinc-800 mt-10 w-full z-50 flex items-center">
+    <ul class="flex ml-4">
+        <li class="cursor-pointer text-r-m hover:text-zinc-400  hover:underline" data-language="eng" id="eng">
+            eng
+        </li>
+        <li class="cursor-pointer ml-4 text-r-m" data-language="gr" id="gr">
+            gr
+        </li>
+    </ul>
+    <div id="cookie_info" class="absolute text-center hidden">
+        <p class="cookie-message text-sm font-semibold">
+            Χρησιμοποιούμε cookies απαραίτητα για την διαμόρφωση της σελίδας.
+        </p>
+    </div>
+    <div class="ml-auto mr-4 cursor-pointer text-sm font-bold hover:text-zinc-400  hover:underline">
+        <a href="https://marinoscv.website/" target="_blank">Marinos CV</a>
+    </div>
+
+</footer>
+
+<style>
+   footer{height:2.5rem}div,footer ul{margin-top:.25rem}#cookie_info{padding:.5rem;background-color:rgba(150,150,150,.9);border-radius:20%;left:50%;transform:translateX(-50%);margin-bottom:2.5rem;z-index:99;width:40ch}.cookie-message{color:#141414}#gr::after,#gr::before{content:'';position:absolute;right:0}#gr::before{top:15px;left:3.5rem;border-top:1px solid currentColor;width:1.65ch}#gr::after{top:32px;left:3.4rem;border-bottom:1px solid currentColor;width:1.8ch}#eng::after,#eng::before{border-top:none}@media screen and (max-width:522px){#gr::before{top:17.5px;left:3.4rem;width:1.6ch}#gr::after{top:32px;left:3.3rem;width:1.8ch}}@media only screen and (max-width:750px){#cookie_info{scale:0.95;width:30ch}}
+</style>
+
+<script>
+   document.addEventListener("DOMContentLoaded", () => { let e = document.querySelector("input[name='search_inp']"), t = localStorage.getItem("lastSearch"); e && t && (e.value = t, localStorage.removeItem("lastSearch")), "/" === window.location.pathname && (() => { let e = document.getElementById("cookie_info"); e.style.opacity = 0, e.style.display = "block", setTimeout(() => { e.style.opacity = 1, e.style.transition = "opacity 800ms" }, 350), setTimeout(() => { setTimeout(() => { e.style.opacity = 0 }, 150), setTimeout(() => { e.style.display = "none" }, 600) }, 6e3) })(), document.querySelectorAll("ul li[data-language]").forEach(e => { e.addEventListener("click", e => { let t = e.target.getAttribute("data-language"), a = document.querySelector("input[name='search_inp']"), l = a ? a.value : "", n = window.location.pathname, o = new URLSearchParams(window.location.search); l ? (localStorage.setItem("lastSearch", l), window.location.href = `/change_language?language=${t}&search_inp=${encodeURIComponent(l)}`) : window.location.href = `/change_language?language=${t}&redirect=${n}&${o.toString()}` }) }) });
+</script>

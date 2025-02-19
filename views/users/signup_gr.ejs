@@ -1,0 +1,24 @@
+<form action="/signup" method="POST" class="my-[30vh] mx-0">
+    <div class="flex justify-center items-center text-center">
+        <input type="username" placeholder="Όνομα" name="username" id="username"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <input type="email" placeholder="Email" name="email" id="email"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <input type="password" placeholder="Κωδικός" name="password" id="passw"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl ml-8 mt-3 mb-9 leading-3 w-56">
+        <span id="eye"></span>
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <button
+            class="border-solid border-white border-[1px] text-sm p-2 mb-margin-about rounded-xl hover:text-zinc-400"
+            id="signup_butt_err">Εγγραφή</button>
+    </div>
+</form>
+
+<script>
+    const signup_butt = document.querySelector("#signup_butt_err"), username = document.querySelector("#username"), email = document.querySelector("#email"), passw = document.querySelector("#passw"), eye = document.querySelector("#eye"); username.addEventListener("input", (function () { username.value = username.value.trim() })), email.addEventListener("input", (function (e) { email.value = email.value.trim().toLowerCase() })), passw.addEventListener("input", (function (e) { passw.value = passw.value.trim() })), eye.addEventListener("click", (function (e) { "password" == passw.type ? passw.type = "text" : passw.type = "password" })), signup_butt.addEventListener("click", (function (e) { let t = "Παρακαλώ πληκτρολογήστε "; const a = /[!@#$%^&*(),.?":{}|<>]/, s = /[0-9]/, u = /[a-zA-Z]/; "" == username.value ? t += "όνομα χρήστη, " : username.value.length < 6 ? t += "μεγαλύτερο όνομα χρήστη (με τουλάχιστον 6 χαρακτήρες), " : u.test(username.value) || (t += "όνομα χρήστη μόνο με λατινικούς χαρακτήρες, "), "" == email.value && (t += "το email σας, "); let n = ""; "" === passw.value ? t += "κωδικό, " : (passw.value.length < 8 && (n += "με τουλάχιστον 8 χαρακτήρες, "), a.test(passw.value) || (n += "έναν ειδικό χαρακτήρα, "), s.test(passw.value) || (n += "έναν αριθμό, "), u.test(passw.value) || (n += "χαρακτήρες, "), n && (t += "κωδικό με " + n)), "Παρακαλώ πληκτρολογήστε " !== t && (e.preventDefault(), alert(t.slice(0, -2) + ".")) }));
+</script>

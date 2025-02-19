@@ -1,0 +1,17 @@
+<form action="/reset_passw/" method="POST" class="my-[40vh]">
+    <input type="hidden" name="token" value="<%= token %>">
+    <div class="flex justify-center items-center text-center">
+        <input type="password" placeholder="Enter your new password" name="password" id="reset_password" required
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 ml-9 leading-3 w-56">
+        <span id="eye"></span>
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <button id="reset_butt"
+            class="border-solid border-white border-[1px] p-2 mb-margin-about rounded-xl hover:text-zinc-400">Reset
+            Password</button>
+    </div>
+</form>
+
+<script>
+    const passw = document.querySelector("#reset_password"), reset_butt = document.querySelector("#reset_butt"), eye = document.querySelector("#eye"), special_char = /[!@#$%^&*(),.?":{}|<>]/, numbers = /[0-9]/, letters = /[a-zA-Z]/; let _0x517e8f = "Please type your new password, which must include "; passw.addEventListener("input", (function (e) { passw.value = passw.value.trim() })), eye.addEventListener("click", (function (e) { "password" == passw.type ? passw.type = "text" : passw.type = "password" })), reset_butt.addEventListener("click", (function (e) { "" == passw.value ? (e.preventDefault(), alert("Please enter your new password.")) : passw.value.length < 8 ? (e.preventDefault(), _0x517e8f += "at least 8 characters, ") : special_char.test(passw.value) ? numbers.test(passw.value) ? letters.test(passw.value) || (e.preventDefault(), _0x517e8f += "at least one letter, ") : (e.preventDefault(), _0x517e8f += "at least one number, ") : (e.preventDefault(), _0x517e8f += "at least one special character, "), "Please type your new password, which must include " !== _0x517e8f && (e.preventDefault(), alert(_0x517e8f.slice(0, -2) + ".")) }));
+   </script>

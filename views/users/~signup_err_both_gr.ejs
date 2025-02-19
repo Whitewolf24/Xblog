@@ -1,0 +1,27 @@
+<span
+    class="break-words font-semibold text-sm text-rose-700 text-center mt-[20vh] my-0 mx-auto w-[66vw] sm:w-[28vw] md:text-base xl:w-[26vw] 2xl:w-[21vw]">Η διεύθυνση email και το όνομα χρήστη δεν είναι διαθέσιμα. Παρακαλούμε διαλέξτε κάποια άλλα. Μήπως προσπαθείτε να <a href="/login"
+        class="underline signup">συνδεθείτε</a>;</span>
+<form action="/signup" method="POST" class="mt-4">
+    <div class="flex justify-center items-center text-center">
+        <input type="username" placeholder="Όνομα" name="username" id="username"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <input type="email" placeholder="Email" name="email" id="email"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <input type="password" placeholder="Κωδικός" name="password" id="passw"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl ml-8 mt-3 mb-9 leading-3 w-56">
+        <span id="eye"></span>
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <button
+            class="border-solid border-white border-[1px] text-sm p-2 mb-[20vw] rounded-xl hover:text-zinc-400 md:mb-[6vw]"
+            id="signup_butt_err">Εγγραφή</button>
+    </div>
+</form>
+
+<script>
+  const signup_butt = document.querySelector("#signup_butt_err"), username = document.querySelector("#username"), email = document.querySelector("#email"), passw = document.querySelector("#passw"), eye = document.querySelector("#eye"); username.addEventListener("input", (function () { username.value = username.value.trim() })), email.addEventListener("input", (function (e) { email.value = email.value.trim().toLowerCase() })), passw.addEventListener("input", (function (e) { passw.value = passw.value.trim() })), eye.addEventListener("click", (function (e) { "password" == passw.type ? passw.type = "text" : passw.type = "password" })), signup_butt.addEventListener("click", (function (e) { let t = "Παρακαλώ πληκτρολογήστε"; "" == username.value ? t += "όνομα χρήστη, " : username.value.length < 6 && (t += "μεγαλύτερο όνομα χρήστη (τουλάχιστον 6 χαρακτήρες), "), "" == email.value && (t += "το email σας, "); let s = ""; "" === passw.value ? t += "κωδικό, " : (passw.value.length < 8 && (s += "με τουλάχιστον 8 χαρακτήρες, "), special_char.test(passw.value) || (s += "έναν ειδικό χαρακτήρα, "), numbers.test(passw.value) || (s += "έναν αριθμό, "), letters.test(passw.value) || (s += "χαρακτήρες, "), s && (t += "κωδικό με " + s)), "Παρακαλώ πληκτρολογήστε" !== t && (e.preventDefault(), alert(t.slice(0, -2) + ".")) }));
+</script>

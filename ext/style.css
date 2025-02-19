@@ -27,8 +27,8 @@ header {
     /* Adjust this value based on your header height */
 }
 
-.posts_ul li:last-child {
-    border-bottom: none !important;
+.posts li:last-child {
+    border-bottom: 4px solid #919ea3;
 }
 
 #search_window {
@@ -109,19 +109,9 @@ header {
     border: solid 1px rgb(161, 161, 170);
 }
 
-/* circle {
-    fill: none;
-    stroke-width: 5;
-    transform: translate(50px, 50px);
-    transform-origin: center;
+.signup:hover {
+    color: rgb(122, 11, 38);
 }
-
-#timer-circle {
-    stroke: red;
-    stroke-dasharray: 188.4;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1s linear;
-} */
 
 @media (max-height: 550px) {
     .update-btn {

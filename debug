@@ -1,0 +1,22 @@
+t=2025-02-10T22:33:14+0200 lvl=info msg="no configuration paths supplied"
+t=2025-02-10T22:33:14+0200 lvl=info msg="using configuration at default config path" path=C:\\Users\\darth\\AppData\\Local/ngrok/ngrok.yml
+t=2025-02-10T22:33:14+0200 lvl=info msg="open config file" path=C:\\Users\\darth\\AppData\\Local\\ngrok\\ngrok.yml err=nil
+t=2025-02-10T22:33:14+0200 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040 allow_hosts=[]
+t=2025-02-10T22:33:14+0200 lvl=info msg="client session established" obj=tunnels.session
+t=2025-02-10T22:33:14+0200 lvl=info msg="tunnel session started" obj=tunnels.session
+t=2025-02-10T22:33:14+0200 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=http://localhost:3000 url=https://b284-2-87-124-136.ngrok-free.app
+t=2025-02-10T22:33:15+0200 lvl=info msg="update available" obj=updater
+t=2025-02-10T22:33:25+0200 lvl=info msg="Got update command" obj=consoleui
+t=2025-02-10T22:33:25+0200 lvl=info msg="applying update" obj=updater
+t=2025-02-10T22:33:25+0200 lvl=eror msg="error while trying to apply the update" obj=consoleui err=nil
+t=2025-02-10T22:33:25+0200 lvl=eror msg="update failed" obj=updater err="open C:\\ProgramData\\chocolatey\\lib\\ngrok\\tools\\.ngrok.exe.new: Access is denied."
+t=2025-02-10T23:33:47+0200 lvl=info msg="join connections" obj=join id=62d0fafde09b l=[::1]:3000 r=2.87.124.136:55248
+t=2025-02-10T23:35:35+0200 lvl=info msg="join connections" obj=join id=0b82821b5c83 l=[::1]:3000 r=2.87.124.136:55248
+t=2025-02-10T23:35:49+0200 lvl=info msg="Got quit command" obj=consoleui
+t=2025-02-10T23:35:49+0200 lvl=info msg="received stop request" obj=app stopReq="{err:<nil> restart:false}"
+t=2025-02-10T23:35:49+0200 lvl=info msg="session closing" obj=tunnels.session err=nil
+t=2025-02-10T23:35:49+0200 lvl=info msg="accept failed" obj=tunnels.session obj=csess id=6f2b80cc8c88 err="reconnecting session closed"
+t=2025-02-10T23:35:49+0200 lvl=info msg="no more state changes" obj=tunnels.session
+t=2025-02-10T23:35:49+0200 lvl=info msg="failed to accept connection: Listener closed" obj=tunnels.session clientid=d0a363fa90a2adc47d9be008eea34d78
+t=2025-02-10T23:35:49+0200 lvl=warn msg="Stopping forwarder" name=command_line acceptErr="failed to accept connection: Listener closed"
+t=2025-02-10T23:35:49+0200 lvl=warn msg="Error restarting forwarder" name=command_line err="failed to start tunnel: session closed"

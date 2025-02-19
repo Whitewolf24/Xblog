@@ -1,0 +1,24 @@
+<form action="/signup" method="POST" class="my-[30vh] mx-0">
+    <div class="flex justify-center items-center text-center">
+        <input type="username" placeholder="Username" name="username" id="username"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <input type="email" placeholder="Email" name="email" id="email"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl mt-3 mb-6 leading-3 w-56">
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <input type="password" placeholder="Password" name="password" id="passw"
+            class="bg-gray-200 h-9 focus:outline-none focus:shadow-[inset_0_1px_1px_0_rgba(50,50,50,0.9)] text-sm text-gray-950 px-4 rounded-xl ml-8 mt-3 mb-9 leading-3 w-56">
+        <span id="eye"></span>
+    </div>
+    <div class="flex justify-center items-center text-center">
+        <button
+            class="border-solid border-white border-[1px] text-sm p-2 mb-margin-about rounded-xl hover:text-zinc-400"
+            id="signup_butt_err">Signup</button>
+    </div>
+</form>
+
+<script>
+    const signup_butt = document.querySelector("#signup_butt_err"), username = document.querySelector("#username"), email = document.querySelector("#email"), passw = document.querySelector("#passw"), eye = document.querySelector("#eye"); username.addEventListener("input", (function () { username.value = username.value.trim() })), email.addEventListener("input", (function (e) { email.value = email.value.trim().toLowerCase() })), passw.addEventListener("input", (function (e) { passw.value = passw.value.trim() })), eye.addEventListener("click", (function (e) { "password" == passw.type ? passw.type = "text" : passw.type = "password" })), signup_butt.addEventListener("click", (function (e) { let a = "Please enter "; const t = /[!@#$%^&*(),.?":{}|<>]/, s = /[0-9]/, n = /[a-zA-Zα-ωΑ-Ω]/; "" == username.value ? a += "your username, " : username.value.length < 6 ? a += "a longer username (at least 6 characters), " : n.test(username.value) || (a += "a username with only english characters, "), "" == email.value && (a += "your email, "); let u = ""; "" === passw.value ? a += "your password, " : (passw.value.length < 8 && (u += "at least 8 characters, "), t.test(passw.value) || (u += "at least one special character, "), s.test(passw.value) || (u += "at least one number, "), n.test(passw.value) || (u += "letters, "), u && (a += "a password with " + u)), "Please enter " !== a && (e.preventDefault(), alert(a.slice(0, -2) + ".")) }));
+</script>

@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="../css/style_min.css">
+<script type="text/javascript" defer src="../js/script.js"></script>
+<article class="mt-40 mb-margin-about">
+    <div class="flex justify-center items-center text-center">
+        <span class="text-lg break-words font-bold" style="display:block; max-width:78vw;">
+            <%= post_data.title %>
+        </span>
+    </div>
+    <div class="flex justify-center items-center text-center mt-1 mb-3">
+        <span class="font-light text-xs cursor-default post_date">
+            by <%= post_data.username %>
+        </span>
+    </div>
+    <div class=" break-words border-b-zinc-800 border-b-2 flex pb-6 my-0 mx-auto w-[90vw]">
+        <p class="my-5 text-r-m posts" style="max-width: 90vw;">
+            <%= post_data.body %>
+        </p>
+    </div>
+    <% const format_date=(date)=> {
+        return new Intl.DateTimeFormat('el-GR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+        }).format(new Date(date));
+        };
+        %>
+        <div class="flex justify-center items-center text-center mt-8">
+            <span class="font-light text-r-t cursor-default post_date">
+                -Ανέβηκε: <%= format_date(post_data.date) %>
+            </span>
+        </div>
+        <div class="flex justify-center items-center text-center mt-3 mb-20">
+            <span class="font-light text-r-t cursor-default post_date">
+                -Ενημερώθηκε: <%= format_date(post_data.update_date) %>
+            </span>
+        </div>
+</article>

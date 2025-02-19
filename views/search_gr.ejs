@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="../css/style_min.css">
+<script type="text/javascript" defer src="../js/script.js"></script>
+<section class="mt-28 z-10 articles">
+    <!-- <h2 class="articles_title font-bold text-2xl ml-margin-lp"> Search Results:
+    </h2> -->
+    <ul class="mt-6 posts_ul">
+
+        <% if (search_data.length===0) { %>
+            <div
+                class="border-b-zinc-800 border-b-2 flex justify-center items-center text-center pb-5 mt-[30vh] mx-auto w-64">
+                <p>Δεν βρέθηκαν αποτελέσματα με τους όρους αναζήτησής σας.</p>
+            </div>
+            <% } else { %>
+                <% search_data.forEach(post=> { %>
+                    <li class="border-b-zinc-800 border-b-2 mb-11">
+                        <a href="/post/<%= post._id %>">
+                            <span
+                                class="ml-6 text-base whitespace-nowrap hover:text-zinc-400 md:ml-24 xl:ml-32 2xl:ml-36">
+                                <%= post.title %>
+                            </span></a>
+                        <div class="flex my-0 mx-auto w-9/12">
+                            <p
+                                class="mt-2 mb-6 font-light line-clamp-6 hyphens-auto text-sm posts md:line-clamp-[8] xl:line-clamp-[10]">
+                                <%= post.body %>
+                            </p>
+                        </div>
+                        <div class="text-center mb-11">
+                            <p id="post_date" class="mb-2 font-light text-xs cursor-default post_date"></p>
+                            <p id="upd_date" class="font-light text-xs cursor-default post_date"></p>
+                        </div>
+                    </li>
+                    <% }) %>
+                        <% } %>
+    </ul>
+</section>
+
+<script>
+    const post = {
+        date: '2024-07-23T14:00:00Z',
+        update_date: '2024-07-24T09:30:00Z' 
+    };
+
+    const formatDate = (dateStr) => {
+        return new Intl.DateTimeFormat('el-GR', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit', hour12: false
+        }).format(new Date(dateStr));
+    };
+
+    document.getElementById('post_date').textContent = `-Ανέβηκε: ${formatDate(post.date)}`;
+    document.getElementById('upd_date').textContent = `-Ενημερώθηκε: ${formatDate(post.update_date)}`;
+</script>
+
+<style>
+    @keyframes wipeAnimation {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .wipe {
+        animation: wipeAnimation 1s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+</style>
