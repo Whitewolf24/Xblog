@@ -16,7 +16,7 @@ RUN npm install nodemailer
 COPY . .
 
 # Build CSS assets (optional, if you’re using PostCSS, Tailwind, etc.)
-RUN npm run css
+#RUN npm run css
 
 # Expose the port the app will run on
 EXPOSE 3000
