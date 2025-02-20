@@ -5,6 +5,7 @@ const express = require("express"),
     users = require(path.join(__dirname, "..", "schema", "users")),
     posts = require(path.join(__dirname, "..", "schema", "posts")),
     session = require("express-session"),
+    MongoStore = require("connect-mongo"),
     bcrypt = require("bcrypt"),
     jwt = require("jsonwebtoken"),
     cookie_parser = require("cookie-parser"),
@@ -68,6 +69,10 @@ async function send_reset_mail(e, s, r) {
 app.use(cookie_parser()),
     require("dotenv").config(),
     router.use(session({
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO || "mongodb://localhost:27017/sessions",
+            collectionName: "sessions"
+        }),
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
