@@ -10,8 +10,7 @@
 
     <section class="mt-28 z-10 articles">
         <% if (no_posts) { %>
-            <div class="border-solid border-white border-[1px] p-2 rounded-xl text-center"
-                style="justify-self: center; margin-top: 20rem; width: 55ch;">
+            <div class="border-solid border-white border-[1px] p-2 rounded-xl text-center no_posts">
                 <p>
                     Δεν έχεις αναρτήσει κάτι. Θες να δοκιμάσεις να <a href="/add"
                         class="underline add_link">δημιουργήσεις</a>
@@ -65,4 +64,17 @@
     .add_link:hover {
         color: rgb(161, 161, 170);
     }
+
+.no_posts{
+justify-self: center;
+margin-top: 32vh;
+width: 55ch;
+}
+
+@media only screen and (max-width: 500px) {
+   .no_posts{
+    font-size: small;
+width: 45ch;
+}
+}
 </style>
