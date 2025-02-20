@@ -1,7 +1,3 @@
-if (process.env.NODE_ENV === "production") {
-    app.set("trust proxy", 1);
-}
-
 const express = require("express"),
     app = express(),
     path = require("path"),
@@ -15,6 +11,7 @@ const express = require("express"),
     cookie_parser = require("cookie-parser"),
     nodemailer = require("nodemailer"),
     axios = require("axios"),
+
     { body: body, validationResult: validationResult } = require("express-validator"),
     biscuit_name = "oreo",
     cookie_secret = process.env.COOKIE_SECRET,
@@ -22,6 +19,11 @@ const express = require("express"),
     users_layouts = { eng: path.join(__dirname, "..", "..", "views", "layouts", "users_eng.ejs"), gr: path.join(__dirname, "..", "..", "views", "layouts", "users_gr.ejs") },
     user_layout_nosearch = { eng: path.join(__dirname, "..", "..", "views", "layouts", "users_nosearch_eng.ejs"), gr: path.join(__dirname, "..", "..", "views", "layouts", "users_nosearch_gr.ejs") },
     transporter = nodemailer.createTransport({ service: "gmail", auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS } });
+
+if (process.env.NODE_ENV === "production") {
+    app.set("trust proxy", 1);
+}
+
 async function shorten(e) {
     try {
         let s = await axios.get("https://tinyurl.com/api-create.php", { params: { url: e } });
