@@ -20,6 +20,8 @@ const express = require("express"),
     user_layout_nosearch = { eng: path.join(__dirname, "..", "..", "views", "layouts", "users_nosearch_eng.ejs"), gr: path.join(__dirname, "..", "..", "views", "layouts", "users_nosearch_gr.ejs") },
     transporter = nodemailer.createTransport({ service: "gmail", auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS } });
 
+app.use(cookie_parser())
+
 if (process.env.NODE_ENV === "production") {
     app.set("trust proxy", 1);
 }
@@ -71,57 +73,56 @@ async function send_reset_mail(e, s, r) {
     `,
                     })
         );
-}
-app.use(cookie_parser()),
-    require("dotenv").config(),
-    router.use(session({
-        store: MongoStore.create({
-            mongoUrl: process.env.MONGO || "mongodb://localhost:27017/sessions",
-            collectionName: "sessions"
-        }),
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-            secure: true,
-            httpOnly: true,
-            sameSite: "Strict",
-            maxAge: 86400000
+};
+router.use(session({
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO || "mongodb://localhost:27017/sessions",
+        collectionName: "sessions"
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: true,
+        httpOnly: true,
+        sameSite: "Strict",
+        maxAge: 86400000
+    }
+})), router
+    .route("/login")
+    .get(async (e, s) => {
+        let r = e.cookies?.cookie,
+            a = login_layouts[r];
+        try {
+            return s.render(path.join(__dirname, "..", "..", "views", "users", `login_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
+        } catch (i) {
+            console.log(i);
+            s.status(500).send("Internal Server Error");
         }
-    })), router
-        .route("/login")
-        .get(async (e, s) => {
-            let r = e.cookies?.cookie,
-                a = login_layouts[r];
-            try {
-                return s.render(path.join(__dirname, "..", "..", "views", "users", `login_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
-            } catch (i) {
-                console.log(i);
-                s.status(500).send("Internal Server Error");
+    })
+    .post(async (e, s) => {
+        let r = e.cookies?.cookie;
+        if (!r) return s.redirect("/");
+        let a = login_layouts[r];
+        try {
+            let { username: i, password: u } = e.body,
+                l = await users.findOne({ username: RegExp(`^${i.trim().toLowerCase()}$`, "i") });
+            if (!l) return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
+            if (await bcrypt.compare(u.trim(), l.password)) {
+                console.log("Current SECRET:", cookie_secret);
+                let p = jwt.sign({ user_id: l._id }, cookie_secret, { expiresIn: '1d' });
+                return s.cookie("oreo", p, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite: "Strict",
+                    path: "/"
+                }).redirect("/users/profile/");
             }
-        })
-        .post(async (e, s) => {
-            let r = e.cookies?.cookie;
-            if (!r) return s.redirect("/");
-            let a = login_layouts[r];
-            try {
-                let { username: i, password: u } = e.body,
-                    l = await users.findOne({ username: RegExp(`^${i.trim().toLowerCase()}$`, "i") });
-                if (!l) return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
-                if (await bcrypt.compare(u.trim(), l.password)) {
-                    let p = jwt.sign({ user_id: l._id }, cookie_secret, { expiresIn: '1d' });
-                    return s.cookie("oreo", p, {
-                        httpOnly: true,
-                        secure: process.env.NODE_ENV === "production",
-                        sameSite: "Strict",
-                        path: "/"
-                    }).redirect("/users/profile/");
-                }
-                return s.render(path.join(__dirname, "..", "..", "views", "users", `login_bad_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
-            } catch (d) {
-                return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
-            }
-        }),
+            return s.render(path.join(__dirname, "..", "..", "views", "users", `login_bad_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
+        } catch (d) {
+            return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
+        }
+    }),
     router
         .route("/add")
         .get(async (e, s) => {
@@ -133,7 +134,6 @@ app.use(cookie_parser()),
                     ? s.render(path.join(__dirname, "..", "..", "views", "users", `add_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: o })
                     : s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
             } catch (i) {
-                console.log(i);
                 console.log(i);
                 s.status(500).send("Internal Server Error");
             }
