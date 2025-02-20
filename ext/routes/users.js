@@ -116,6 +116,7 @@ app.use(cookie_parser()),
                         ? s.render(path.join(__dirname, "..", "..", "views", "users", `add_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: o })
                         : s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
                 } catch (i) {
+                    console.log(i);
                     s.status(500).send("Internal Server Error");
                 }
             })
