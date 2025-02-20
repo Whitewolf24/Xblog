@@ -1,5 +1,8 @@
-const { error: e } = require("console"),
-    express = require("express"),
+require("dotenv").config()
+if (!process.env.SESSION_SECRET) {
+    console.error("Missing SESSION_SECRET in .env file!");
+}
+const express = require("express"),
     path = require("path"),
     cookie_parser = require("cookie-parser"),
     mongoose = require("mongoose"),
@@ -13,7 +16,6 @@ const { error: e } = require("console"),
     users_layouts = { eng: path.join(__dirname, "..", "..", "views", "layouts", "users_eng.ejs"), gr: path.join(__dirname, "..", "..", "views", "layouts", "users_gr.ejs") };
 app.use(cookie_parser()),
     app.use(express.json()),
-    require("dotenv").config(),
     (verify_user = (e, r, s) => {
         let t = e.cookies.oreo;
         if (!t) return s();

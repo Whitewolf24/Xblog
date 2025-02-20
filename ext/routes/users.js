@@ -138,7 +138,6 @@ app.use(cookie_parser()),
                         layout: a
                     });
                 }
-
                 let i;
                 try {
                     i = jwt.verify(e.cookies.oreo, cookie_secret); // Verify JWT
