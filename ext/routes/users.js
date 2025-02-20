@@ -82,7 +82,7 @@ app.use(cookie_parser()),
             sameSite: "Strict",
             maxAge: 86400000
         }
-    })); router
+    })), console.log("Session Store:", session.Store), router
         .route("/login")
         .get(async (e, s) => {
             let r = e.cookies?.cookie,
