@@ -130,16 +130,37 @@ app.use(cookie_parser()),
         .post(async (e, s) => {
             let r = e.cookies?.cookie,
                 a = login_layouts[r];
+
             try {
-                if (e.cookies.oreo) {
-                    let i = jwt.verify(e.cookies.oreo, cookie_secret),
-                        u = (i?.user_id, e.session.username);
-                    return await (post = new posts({ title: e.body.title, body: e.body.content, username: u })).save(), s.redirect("/");
+                if (!e.cookies.oreo) {
+                    return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), {
+                        meta: { name: "MongoXpress" },
+                        layout: a
+                    });
                 }
-                return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
+
+                let i;
+                try {
+                    i = jwt.verify(e.cookies.oreo, cookie_secret); // Verify JWT
+                } catch (error) {
+                    console.error("JWT Verification Error:", error);
+
+                    // Handle different JWT errors
+                    if (error.name === "TokenExpiredError") {
+                        return s.status(401).send("Session expired, please log in again.");
+                    } else if (error.name === "JsonWebTokenError") {
+                        return s.status(401).send("Invalid token, please log in again.");
+                    }
+
+                    return s.status(500).send("Internal Server Error");
+                }
+
+                let u = e.session.username;
+                let post = new posts({ title: e.body.title, body: e.body.content, username: u });
+                await post.save();
+                return s.redirect("/");
             } catch (l) {
-                console.log(l);
-                console.log(l);
+                console.error("Unexpected Error:", l);
                 s.status(500).send("Internal Server Error");
             }
         }),
