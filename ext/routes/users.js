@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV === "production") {
+    app.set("trust proxy", 1);
+}
+
 const express = require("express"),
     app = express(),
     path = require("path"),
@@ -103,8 +107,13 @@ app.use(cookie_parser()),
                     l = await users.findOne({ username: RegExp(`^${i.trim().toLowerCase()}$`, "i") });
                 if (!l) return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
                 if (await bcrypt.compare(u.trim(), l.password)) {
-                    let p = jwt.sign({ user_id: l._id }, cookie_secret);
-                    return s.cookie("oreo", p, { httpOnly: true, secure: true, sameSite: "Strict", path: "/" }), (e.session.username = l.username), s.redirect("/users/profile/");
+                    let p = jwt.sign({ user_id: l._id }, cookie_secret, { expiresIn: '1d' });
+                    return s.cookie("oreo", p, {
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV === "production",
+                        sameSite: "Strict",
+                        path: "/"
+                    }).redirect("/users/profile/");
                 }
                 return s.render(path.join(__dirname, "..", "..", "views", "users", `login_bad_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
             } catch (d) {
@@ -241,7 +250,7 @@ app.use(cookie_parser()),
                 try {
                     let m = await users.create({ username: d, email: p, password: c }),
                         y = jwt.sign({ user_id: m._id }, cookie_secret);
-                    return s.cookie("oreo", `id=${y}`, { httpOnly: true, secure: true, sameSite: "Strict", path: "/" }), (e.session.username = d), s.redirect("/");
+                    return s.cookie("oreo", `id=${y}`, { httpOnly: true, secure: true, sameSite: "Strict", path: "/" }), (e.session.username = d), s.redirect("/users/profile/");
                 } catch (g) {
                     if (11e3 !== g.code) return s.render(path.join(__dirname, "..", "..", "views", "users", `signup_err_${a}.ejs`), { meta: { name: "MongoXpress" }, layout: layout });
                     if (g.keyPattern && g.keyPattern.username) return s.render(path.join(__dirname, "..", "..", "views", "users", `signup_err_user_${a}.ejs`), { meta: { name: "MongoXpress" }, layout: layout });

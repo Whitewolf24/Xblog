@@ -1,7 +1,5 @@
 require("dotenv").config()
-if (!process.env.SESSION_SECRET) {
-    console.error("Missing SESSION_SECRET in .env file!");
-}
+
 const express = require("express"),
     path = require("path"),
     cookie_parser = require("cookie-parser"),
