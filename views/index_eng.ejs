@@ -35,41 +35,43 @@
                 let response = await fetch(url);
                 let data = await response.json();
 
+                console.log("Fetched Posts:", data);
+
                 if (data.length > 0) {
                     data.forEach(post => {
                         let posts_li = document.createElement("li");
                         posts_li.classList.add("wipe", "border-b-zinc-800", "border-b-4", "mb-11");
                         posts_li.setAttribute("data-post-id", post._id);
                         posts_li.innerHTML = `
-                            <a href="/post/${post._id}">
-                                <span class="ml-6 text-base hover:text-zinc-400 md:ml-24 xl:ml-32 2xl:ml-36 font-bold break-words" 
-                                    style="display:block; max-width:78vw;">
-                                    ${post.title}
-                                </span>
-                            </a>
-                            <div class="ml-6 mb-4 cursor-default md:ml-24 xl:ml-32 2xl:ml-36">
-                                <span class="font-light text-xs">by ${post.username}</span>
-                            </div>
-                            <div class="break-words flex my-0 mx-auto w-9/12">
-                                <p class="mt-2 mb-6 font-light line-clamp-6 text-sm posts md:line-clamp-[7] xl:line-clamp-[10]">
-                                    ${post.body}
-                                </p>
-                            </div>
-                            <div class="text-center mb-20">
-                                <p class="mb-2 font-light text-xs cursor-default post_date">
-                                    - Posted: ${new Intl.DateTimeFormat("en-GB", {
+                        <a href="/post/${post._id}">
+                            <span class="ml-6 text-base hover:text-zinc-400 md:ml-24 xl:ml-32 2xl:ml-36 font-bold break-words" 
+                                style="display:block; max-width:78vw;">
+                                ${post.title}
+                            </span>
+                        </a>
+                        <div class="ml-6 mb-4 cursor-default md:ml-24 xl:ml-32 2xl:ml-36">
+                            <span class="font-light text-xs">by ${post.username}</span>
+                        </div>
+                        <div class="break-words flex my-0 mx-auto w-9/12">
+                            <p class="mt-2 mb-6 font-light line-clamp-6 text-sm posts md:line-clamp-[7] xl:line-clamp-[10]">
+                                ${post.body}
+                            </p>
+                        </div>
+                        <div class="text-center mb-20">
+                            <p class="mb-2 font-light text-xs cursor-default post_date">
+                                - Posted: ${new Intl.DateTimeFormat("en-GB", {
                             day: "2-digit", month: "2-digit", year: "numeric",
                             hour: "2-digit", minute: "2-digit", hour12: false
                         }).format(new Date(post.date))}
-                                </p>
-                                <p class="font-light text-xs cursor-default post_date">
-                                    - Updated: ${new Intl.DateTimeFormat("en-GB", {
+                            </p>
+                            <p class="font-light text-xs cursor-default post_date">
+                                - Updated: ${new Intl.DateTimeFormat("en-GB", {
                             day: "2-digit", month: "2-digit", year: "numeric",
                             hour: "2-digit", minute: "2-digit", hour12: false
                         }).format(new Date(post.update_date))}
-                                </p>
-                            </div>
-                        `;
+                            </p>
+                        </div>
+                    `;
 
                         posts_ul.appendChild(posts_li);
                         requestAnimationFrame(() => { posts_li.classList.add("visible"); });
@@ -78,6 +80,7 @@
                     last_id = data[data.length - 1]?._id || last_id;
                 } else {
                     all_loaded = true;
+                    console.log("All posts loaded.");
                 }
             } catch (error) {
                 console.error("Error loading more posts:", error);
@@ -86,23 +89,29 @@
             }
         }
 
-        // Initialize scrolling
-        window.scrollTo(0, 0);
         fetch_more(true);
 
         function posts_scroll() {
+            console.log("Scroll event triggered");
             if (all_loaded || loading) return;
-            if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 100) {
+
+            let scroll_position = window.innerHeight + window.scrollY;
+            let document_height = document.documentElement.scrollHeight;
+
+            console.log("Scroll Pos:", scroll_position, "Doc Height:", document_height);
+
+            if (scroll_position >= document_height - 50) {
+                console.log("Fetching more posts...");
                 fetch_more();
             }
         }
 
-        let debounce;
         window.addEventListener("scroll", () => {
-            clearTimeout(debounce);
-            debounce = setTimeout(posts_scroll, 100);
+            clearTimeout(window.debounce);
+            window.debounce = setTimeout(posts_scroll, 100);
         });
     });
+
 </script>
 
 
