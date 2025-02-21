@@ -82,11 +82,12 @@ app.use(cookie_parser()),
     }),
     router.get("/more_posts", async (e, r) => {
         try {
-            let { last_post: s, limit: t } = e.query,
-                o = s ? { _id: { $lt: s } } : {},
-                a = await posts.find(o).sort({ date: -1 }).limit(t).exec();
-            r.json(a);
+            let { last_post, limit } = e.query,
+                query = last_post ? { _id: { $lt: last_post } } : {},
+                post_list = await posts.find(query).sort({ date: -1 }).limit(Number(limit) || 1).exec();
+            r.json(post_list);
         } catch (n) {
+            console.error("Error fetching more posts:", n);
             r.status(500).json({ message: "Server Error" });
         }
     }),

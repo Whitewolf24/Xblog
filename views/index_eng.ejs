@@ -17,40 +17,94 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        let e = null, t = !1, n = !1, i = document.querySelector(".posts_ul"), a = null, l = !1; async function s(s = !1) {
-            if (t || n) return; t = !0; let o = new URL("/more_posts", window.location.origin); e && o.searchParams.append("last_post", e), o.searchParams.append("limit", s ? 2 : 1), o.searchParams.append("cache_buster", (new Date).getTime()); try {
-                let r = await fetch(o), d = await r.json(); if (d.length > 0) {
-                    d.forEach(e => {
-                        let t = document.createElement("li"); t.classList.add("wipe", "border-b-zinc-800", "border-b-4", "mb-11"), t.setAttribute("data-post-id", e._id), t.innerHTML = `
-                        <a href="/post/${e._id}">
-                            <span class=" ml-6 text-base hover:text-zinc-400 md:ml-24 xl:ml-32 2xl:ml-36 font-bold break-words" style="display:block; max-width:78vw;">
-                                ${e.title}
-                            </span>
-                        </a>
-                        <div class="ml-6 mb-4 cursor-default md:ml-24 xl:ml-32 2xl:ml-36">
-                            <span class="font-light text-xs">
-                                από ${e.username}
-                            </span>
-                        </div>
-                        <div class="break-words flex my-0 mx-auto w-9/12">
-                            <p class="mt-2 mb-6 font-light line-clamp-6 text-sm posts md:line-clamp-[7] xl:line-clamp-[10]">
-                                ${e.body}
-                            </p>
-                        </div>
-                        <div class="text-center mb-20">
-                            <p class="mb-2 font-light text-xs cursor-default post_date">
-                                -Posted: ${new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: !1 }).format(new Date(e.date))}
-                            </p>
-                            <p class="font-light text-xs cursor-default post_date">
-                                -Updated: ${new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: !1 }).format(new Date(e.update_date))}
-                            </p>
-                        </div>
-                    `, i.appendChild(t), a = t, requestAnimationFrame(() => { t.classList.add("visible") })
-                    }), e = d[d.length - 1]._id; let m = document.createElement("div"); m.style.height = "50px", i.appendChild(m), a && !s && (l = !0, window.scrollTo({ top: a.offsetTop + a.offsetHeight - window.innerHeight, behavior: "smooth" })), d.length > 1 && (i.getElementsByTagName("li")[1].style.paddingTop = "2rem")
-                } else n = !0
-            } catch (c) { } finally { t = !1 }
-        } window.scrollTo(0, 0), s(!0); let o = () => { l || function () { if (n) return void window.removeEventListener("scroll", o); window.innerHeight + window.scrollY >= document.body.scrollHeight - 100 && s() }(), l = !1 }, r; window.addEventListener("scroll", () => { r && clearTimeout(r), r = setTimeout(o, 10) })
-    });</script>
+        let last_id = null,
+            loading = false,
+            all_loaded = false,
+            posts_ul = document.querySelector(".posts_ul");
+
+        async function fetchMorePosts(initialLoad = false) {
+            if (loading || all_loaded) return;
+            loading = true;
+
+            let url = new URL("/more_posts", window.location.origin);
+            if (last_id) url.searchParams.append("last_post", last_id);
+            url.searchParams.append("limit", initialLoad ? 2 : 1);
+            url.searchParams.append("cache_buster", Date.now());
+
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+
+                if (data.length > 0) {
+                    data.forEach(post => {
+                        let posts_li = document.createElement("li");
+                        posts_li.classList.add("wipe", "border-b-zinc-800", "border-b-4", "mb-11");
+                        posts_li.setAttribute("data-post-id", post._id);
+                        posts_li.innerHTML = `
+                            <a href="/post/${post._id}">
+                                <span class="ml-6 text-base hover:text-zinc-400 md:ml-24 xl:ml-32 2xl:ml-36 font-bold break-words" 
+                                    style="display:block; max-width:78vw;">
+                                    ${post.title}
+                                </span>
+                            </a>
+                            <div class="ml-6 mb-4 cursor-default md:ml-24 xl:ml-32 2xl:ml-36">
+                                <span class="font-light text-xs">by ${post.username}</span>
+                            </div>
+                            <div class="break-words flex my-0 mx-auto w-9/12">
+                                <p class="mt-2 mb-6 font-light line-clamp-6 text-sm posts md:line-clamp-[7] xl:line-clamp-[10]">
+                                    ${post.body}
+                                </p>
+                            </div>
+                            <div class="text-center mb-20">
+                                <p class="mb-2 font-light text-xs cursor-default post_date">
+                                    - Posted: ${new Intl.DateTimeFormat("en-GB", {
+                            day: "2-digit", month: "2-digit", year: "numeric",
+                            hour: "2-digit", minute: "2-digit", hour12: false
+                        }).format(new Date(post.date))}
+                                </p>
+                                <p class="font-light text-xs cursor-default post_date">
+                                    - Updated: ${new Intl.DateTimeFormat("en-GB", {
+                            day: "2-digit", month: "2-digit", year: "numeric",
+                            hour: "2-digit", minute: "2-digit", hour12: false
+                        }).format(new Date(post.update_date))}
+                                </p>
+                            </div>
+                        `;
+
+                        posts_ul.appendChild(posts_li);
+                        requestAnimationFrame(() => { posts_li.classList.add("visible"); });
+                    });
+
+                    last_id = data[data.length - 1]?._id || last_id;
+                } else {
+                    all_loaded = true;
+                }
+            } catch (error) {
+                console.error("Error loading more posts:", error);
+            } finally {
+                loading = false;
+            }
+        }
+
+        // Initialize scrolling
+        window.scrollTo(0, 0);
+        fetchMorePosts(true);
+
+        function handleScroll() {
+            if (all_loaded) return;
+            if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 150) {
+                fetchMorePosts();
+            }
+        }
+
+        let debounceTimer;
+        window.addEventListener("scroll", () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(handleScroll, 200);
+        });
+    });
+</script>
+
 
 
 <style>
