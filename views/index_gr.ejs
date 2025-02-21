@@ -19,7 +19,7 @@
             all_loaded = false,
             posts_ul = document.querySelector(".posts_ul");
 
-        async function fetchMorePosts(initialLoad = false) {
+        async function fetch_more(initialLoad = false) {
             if (loading || all_loaded) return;
             loading = true;
 
@@ -79,19 +79,19 @@
 
         // Initialize scrolling
         window.scrollTo(0, 0);
-        fetchMorePosts(true);
+        fetch_more(true);
 
-        function handleScroll() {
-            if (all_loaded) return;
-            if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 150) {
-                fetchMorePosts();
+        function posts_scroll() {
+            if (all_loaded || loading) return;
+            if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 100) {
+                fetch_more();
             }
         }
 
-        let debounceTimer;
+        let debounce;
         window.addEventListener("scroll", () => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(handleScroll, 200);
+            clearTimeout(debounce);
+            debounce = setTimeout(posts_scroll, 100);
         });
     });
 </script>
