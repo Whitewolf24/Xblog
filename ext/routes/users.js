@@ -155,7 +155,6 @@ router.use(session({
                 } catch (error) {
                     console.error("JWT Verification Error:", error);
 
-                    // Handle different JWT errors
                     if (error.name === "TokenExpiredError") {
                         return s.status(401).send("Session expired, please log in again.");
                     } else if (error.name === "JsonWebTokenError") {

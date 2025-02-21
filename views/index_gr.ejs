@@ -32,8 +32,6 @@
                 let response = await fetch(url);
                 let data = await response.json();
 
-                console.log("Fetched Posts:", data);
-
                 if (data.length > 0) {
                     data.forEach(post => {
                         let posts_li = document.createElement("li");
@@ -71,7 +69,6 @@
                     last_id = data[data.length - 1]?._id || last_id;
                 } else {
                     all_loaded = true;
-                    console.log("All posts loaded.");
                 }
             } catch (error) {
                 console.error("Error loading more posts:", error);
@@ -84,24 +81,18 @@
             let scroll_position = window.innerHeight + window.scrollY;
             let document_height = document.documentElement.scrollHeight;
 
-            console.log("Check if more needed -> Scroll Pos:", scroll_position, "Doc Height:", document_height);
-
             if (scroll_position >= document_height - 50) {
                 fetch_more();
             }
         }
 
         function posts_scroll() {
-            console.log("Scroll event triggered");
             if (all_loaded || loading) return;
 
             let scroll_position = window.innerHeight + window.scrollY;
             let document_height = document.documentElement.scrollHeight;
 
-            console.log("Scroll Pos:", scroll_position, "Doc Height:", document_height);
-
             if (scroll_position >= document_height - 50) {
-                console.log("Fetching more posts...");
                 fetch_more();
             }
         }
