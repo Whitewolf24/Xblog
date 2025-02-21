@@ -109,8 +109,8 @@ router.use(session({
                 l = await users.findOne({ username: RegExp(`^${i.trim().toLowerCase()}$`, "i") });
             if (!l) return s.render(path.join(__dirname, "..", "..", "views", "users", `login_notuser_${r}.ejs`), { meta: { name: "MongoXpress" }, layout: a });
             if (await bcrypt.compare(u.trim(), l.password)) {
-                console.log("Current SECRET:", cookie_secret);
                 let p = jwt.sign({ user_id: l._id }, cookie_secret, { expiresIn: '1d' });
+                e.session.username = l.username;
                 return s.cookie("oreo", p, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
@@ -151,7 +151,7 @@ router.use(session({
                 }
                 let i;
                 try {
-                    i = jwt.verify(e.cookies.oreo, cookie_secret); // Verify JWT
+                    i = jwt.verify(e.cookies.oreo, cookie_secret);
                 } catch (error) {
                     console.error("JWT Verification Error:", error);
 
@@ -251,8 +251,9 @@ router.use(session({
                     c = await bcrypt.hash(l, 10);
                 try {
                     let m = await users.create({ username: d, email: p, password: c }),
-                        y = jwt.sign({ user_id: m._id }, cookie_secret);
-                    return s.cookie("oreo", `id=${y}`, { httpOnly: true, secure: true, sameSite: "Strict", path: "/" }), (e.session.username = d), s.redirect("/users/profile/");
+                        y = jwt.sign({ user_id: m._id }, cookie_secret, { expiresIn: '1d' });
+                    e.session.username = d;
+                    return s.cookie("oreo", y, { httpOnly: true, secure: true, sameSite: "Strict", path: "/" }), s.redirect("/users/profile/");
                 } catch (g) {
                     if (11e3 !== g.code) return s.render(path.join(__dirname, "..", "..", "views", "users", `signup_err_${a}.ejs`), { meta: { name: "MongoXpress" }, layout: layout });
                     if (g.keyPattern && g.keyPattern.username) return s.render(path.join(__dirname, "..", "..", "views", "users", `signup_err_user_${a}.ejs`), { meta: { name: "MongoXpress" }, layout: layout });

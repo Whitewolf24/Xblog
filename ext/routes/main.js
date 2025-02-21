@@ -18,9 +18,12 @@ app.use(cookie_parser()),
         let t = e.cookies.oreo;
         if (!t) return s();
         try {
-            let o = jwt.verify(t, process.env.cookie_secret);
+            let o = jwt.verify(t, process.env.COOKIE_SECRET);
             o.userId && (e.userId = o.userId);
-        } catch (a) { }
+        } catch (error) {
+            console.error("JWT Verification Failed:", error);
+            return r.status(401).send("Invalid token, please log in again.");
+        }
         s();
     }),
     router.get("/", async (e, r) => {
