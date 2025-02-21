@@ -89,7 +89,16 @@
             }
         }
 
-        fetch_more(true);
+        function call_more() {
+            let scroll_position = window.innerHeight + window.scrollY;
+            let document_height = document.documentElement.scrollHeight;
+
+            console.log("Check if more needed -> Scroll Pos:", scroll_position, "Doc Height:", document_height);
+
+            if (scroll_position >= document_height - 50) {
+                fetch_more();
+            }
+        }
 
         function posts_scroll() {
             console.log("Scroll event triggered");
@@ -105,6 +114,9 @@
                 fetch_more();
             }
         }
+
+        fetch_more(true);
+        setTimeout(call_more, 500);
 
         window.addEventListener("scroll", () => {
             clearTimeout(window.debounce);
