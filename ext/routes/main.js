@@ -26,6 +26,10 @@ app.use(cookie_parser()),
         }
         s();
     }),
+    app.use((req, res, next) => {
+        res.setHeader("X-Robots-Tag", "noindex, nofollow");
+        next();
+    }),
     router.get("/", async (e, r) => {
         let s = e.cookies.oreo,
             t = e.cookies?.cookie;
